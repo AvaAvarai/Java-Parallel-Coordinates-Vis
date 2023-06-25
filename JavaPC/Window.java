@@ -12,6 +12,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 
+/**
+ * Window container class
+ */
 public class Window extends JFrame {
 
     public Window() {
@@ -32,7 +35,7 @@ public class Window extends JFrame {
         // Exit the application when the frame is closed
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Ui uiPanel = new Ui(this);
+        Ribbon ribbon = new Ribbon(this);
 
         JPanel bottomPanel = new JPanel(); // Create a separate panel for the uiPanel
         bottomPanel.setBackground(Color.darkGray); // Adjust the color as needed
@@ -45,7 +48,7 @@ public class Window extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER; // Center-align the component
         gbc.insets = new Insets(0, 0, 0, 0); // Add some spacing around the component
 
-        bottomPanel.add(uiPanel, gbc); // Add the uiPanel using the GridBagConstraints
+        bottomPanel.add(ribbon, gbc); // Add the uiPanel using the GridBagConstraints
 
         add(bottomPanel, BorderLayout.SOUTH); // Add the bottom panel to the SOUTH position
 

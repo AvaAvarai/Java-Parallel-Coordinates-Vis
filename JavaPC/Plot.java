@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-
+/**
+ * Plot renderer class
+ */
 public class Plot extends JPanel {
 
     String[][] data;
@@ -31,7 +33,7 @@ public class Plot extends JPanel {
 
         int panelWidth = getWidth();
         int panelHeight = getHeight();
-        int margin = 20;
+        int margin = 50;
 
         int axisCount = data[0].length;
         int lineSpacing = panelWidth / (axisCount + 1);
@@ -81,7 +83,7 @@ public class Plot extends JPanel {
 
         for (int i = 1; i <= axisCount; i++) {
             int x = lineSpacing * i;
-            g.drawLine(x, 20, x, panelHeight - margin); // axis
+            g.drawLine(x, margin, x, panelHeight - margin); // axis
         }
         
         for (int j = 1; j < data.length; j++) {

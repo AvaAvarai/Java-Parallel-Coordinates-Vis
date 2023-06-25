@@ -17,21 +17,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * Ui ribbon class
+ */
+public class Ribbon extends JPanel {
 
-public class Ui extends JPanel {
+    File loadedCSV; // @ TODO: make stateless
 
-    File loadedCSV;
-
-    public Ui(Window parent) {
+    public Ribbon(Window parent) {
         // Set the preferred size of the panel
         setPreferredSize(new Dimension(250, 50));
 
         // Set the layout manager to GridBagLayout
         setLayout(new GridBagLayout());
 
-
         // Set the background color to a metallic color
-        setBackground(new Color(192, 192, 192)); // Adjust the RGB values for the desired metallic color
+        setBackground(new Color(192, 192, 192));
 
         // Create the buttons
         JButton button1 = new JButton("Load CSV");
@@ -69,7 +70,7 @@ public class Ui extends JPanel {
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(0, 10, 0, 0); // Add left padding
+        constraints.insets = new Insets(0, 10, 0, 0);
 
         // Add the buttons to the panel
         add(button1, constraints);
@@ -90,7 +91,7 @@ public class Ui extends JPanel {
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\datasets"));
 
         // Show the dialog and wait for user selection
-        int result = fileChooser.showOpenDialog(this);
+        int result = fileChooser.showOpenDialog(Ribbon.this);
 
         // If a file is selected, process it
         if (result != JFileChooser.APPROVE_OPTION) {
@@ -98,15 +99,17 @@ public class Ui extends JPanel {
         }
 
         File selectedFile = fileChooser.getSelectedFile();
-        // Process the selected file (load CSV)
-        // Add your CSV loading logic here
-        JOptionPane.showMessageDialog(Ui.this, "CSV file selected: " + selectedFile.getAbsolutePath());
+        JOptionPane.showMessageDialog(Ribbon.this, "CSV file selected: " + selectedFile.getAbsolutePath());
         
+        // Check for CSV extension
         String fileName = selectedFile.getName();
         int extensionIndex = fileName.lastIndexOf(".");
+
         if (extensionIndex > 0 && extensionIndex < fileName.length() - 1) {
             String fileExtension = fileName.substring(extensionIndex + 1).toLowerCase();
-            if (fileExtension.equals("csv")) return selectedFile;
+            if (fileExtension.equals("csv")) {
+                return selectedFile;
+            }
         }
         return null;
     }
@@ -116,8 +119,9 @@ public class Ui extends JPanel {
             String line;
             int numRows = getNumRows(csvFile); // Get the number of rows in the CSV file
             int numCols = getNumCols(csvFile); // Get the number of columns in the CSV file
-            String[][] data = new String[numRows][numCols]; // Create a 2D array to store the data
+            String[][] data = new String[numRows][numCols];
 
+            // parses CSV into 2D array
             int row = 0;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
