@@ -123,5 +123,21 @@ public class Plot extends JPanel {
             label.setSize(size);
             add(label);
         }
+
+        JLabel label = new JLabel("Sample count: " + (data.length-1));
+
+        // Set the size of the label
+        int width = 150;
+        int height = 30;
+        Dimension size = new Dimension(width, height);
+        label.setSize(size);
+
+        // Set the position of the label
+        int xPos = 10;
+        int yPos = panelHeight - height;
+        Point position = new Point(xPos, yPos);
+        label.setLocation(position);
+
+        add(label);
     }
 }
