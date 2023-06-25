@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.BorderLayout;
 
 /**
@@ -52,11 +53,12 @@ public class Window extends JFrame {
 
         add(bottomPanel, BorderLayout.SOUTH); // Add the bottom panel to the SOUTH position
 
-        JLabel label = new JLabel("Please load a dataset with 'Load CSV' on UI ribbon below.");
+        JLabel prompt = new JLabel("Please load a dataset with 'Load CSV' on UI ribbon below.");
+        prompt.setFont(new Font("Arial", Font.PLAIN, 12));
     
         // Create an inner JPanel with FlowLayout and add the label
         JPanel innerPanel = new JPanel();
-        innerPanel.add(label);
+        innerPanel.add(prompt);
         innerPanel.setBorder(new EmptyBorder(300, 0, 300, 0)); // Add empty border for centering
         add(innerPanel, BorderLayout.CENTER);
 

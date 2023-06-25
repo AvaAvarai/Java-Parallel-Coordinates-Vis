@@ -1,9 +1,11 @@
 package JavaPC;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -81,9 +83,24 @@ public class Plot extends JPanel {
             colorMap.put(name, randomColor);
         }
 
+        // draw axis lines and labels
         for (int i = 1; i <= axisCount; i++) {
             int x = lineSpacing * i;
-            g.drawLine(x, margin, x, panelHeight - margin); // axis
+            g.drawLine(x, margin, x, panelHeight - margin);
+            
+            JLabel label = new JLabel(data[0][i-1].strip());
+            // Set the position of the label
+            int xPos = x;
+            int yPos = margin/2;
+            Point position = new Point(xPos, yPos);
+            label.setLocation(position);
+
+            // Set the size of the label
+            int width = 100;
+            int height = 30;
+            Dimension size = new Dimension(width, height);
+            label.setSize(size);
+            add(label);
         }
         
         for (int j = 1; j < data.length; j++) {
