@@ -4,7 +4,7 @@ Parallel Coordinates n-D data visualization implementation in Java.
 
 Parses CSV files (must have class/id in the lass column for now) and displays in a parallel coordinates plot.  
 
-## TODO
+## Project Goals
 
 - last axis plot for class/id  
 - class-specific colors  
@@ -12,6 +12,8 @@ Parses CSV files (must have class/id in the lass column for now) and displays in
 
 ## Early screenshots
 
+### Iris dataset with class specific colors:  
+![Iris dataset with class specific colors](screenshots/iris_with_class_specific_colors.png)
 ### Iris dataset with random colors:  
 ![Iris dataset with random colors](screenshots/iris_with_random_colors.png)
 ### first wbc diagnosis dataset render:  

@@ -2,7 +2,9 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 
 public class Plot extends JPanel {
@@ -32,14 +34,25 @@ public class Plot extends JPanel {
         int axisCount = data[0].length;
         int lineSpacing = panelWidth / (axisCount + 1);
 
+        ArrayList<String> classNames = new ArrayList<>();
+
         g.setColor(Color.BLACK);
 
         float[] maxes = new float[axisCount - 1]; // init to all 0s
         float[] mins = new float[axisCount - 1]; // init to all max values
         Arrays.fill(mins, Float.MAX_VALUE);
 
+        // TODO: Move to a preprocessing step.
         for (int j = 1; j < data.length; j++) {
-            for (int i = 0; i < axisCount - 1; i++) {
+            for (int i = 0; i < axisCount; i++) {
+                if (i == axisCount - 1) {
+                    String name = data[j][i];
+                    if (!classNames.contains(name)) {
+                        classNames.add(name);
+                    }
+                    continue;
+                }
+
                 Float dataPnt = Float.parseFloat(data[j][i]);
                 if (dataPnt > maxes[i]) {
                     maxes[i] = dataPnt;
@@ -50,14 +63,8 @@ public class Plot extends JPanel {
             }
         }
 
-        System.out.println(Arrays.toString(mins));
-        
-        for (int i = 1; i <= axisCount; i++) {
-            int x = lineSpacing * i;
-            g.drawLine(x, 20, x, panelHeight - margin); // axis
-        }
-
-        for (int j = 1; j < data.length; j++) {
+        HashMap<String, Color> colorMap = new HashMap<>();
+        for (String name : classNames) {
              // Generate random RGB values
             int red = (int) (Math.random() * 256);
             int green = (int) (Math.random() * 256);
@@ -67,15 +74,23 @@ public class Plot extends JPanel {
             Color randomColor = new Color(red, green, blue);
 
             // Set the color of the graphics object
-            g.setColor(randomColor);
+            colorMap.put(name, randomColor);
+        }
 
+        for (int i = 1; i <= axisCount; i++) {
+            int x = lineSpacing * i;
+            g.drawLine(x, 20, x, panelHeight - margin); // axis
+        }
+        
+        for (int j = 1; j < data.length; j++) {
             for (int i = 1; i < axisCount; i++) {
                 int x = lineSpacing * i;
                 Float dataPnt = Float.parseFloat(data[j][i-1]);
-
                 int pos = Math.round((panelHeight - margin - margin) * ((dataPnt - mins[i-1]) / (maxes[i-1] - mins[i-1])) + margin);
 
-                g.drawOval(x - 3, panelHeight - pos - 3, 6, 6);
+                g.setColor(colorMap.get(data[j][axisCount - 1]));
+
+                g.fillOval(x - 3, panelHeight - pos - 3, 6, 6);
                 
                 if (i < axisCount - 1) {
                     Float nextDataPnt = Float.parseFloat(data[j][i]);
