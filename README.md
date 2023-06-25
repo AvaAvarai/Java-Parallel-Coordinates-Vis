@@ -20,7 +20,9 @@ To plot a dataset make sure the class/id column is the last column.
 - dataset class abstraction to store mins, maxes, names, classCount  
 - detect class/id column on dataset load  
 - other dataset formats (.txt, .pdf?)
-- axis inversion    
+- axis inversion  
+- hyperblock outlines  
+- nD datapoint highlighting  
 
 ## Early screenshots
 

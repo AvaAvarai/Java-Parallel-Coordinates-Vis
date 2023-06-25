@@ -1,5 +1,8 @@
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -43,6 +46,14 @@ public class Window extends JFrame {
         bottomPanel.add(uiPanel, gbc); // Add the uiPanel using the GridBagConstraints
 
         add(bottomPanel, BorderLayout.SOUTH); // Add the bottom panel to the SOUTH position
+
+        JLabel label = new JLabel("Please load a dataset.");
+    
+        // Create an inner JPanel with FlowLayout and add the label
+        JPanel innerPanel = new JPanel();
+        innerPanel.add(label);
+        innerPanel.setBorder(new EmptyBorder(300, 0, 300, 0)); // Add empty border for centering
+        add(innerPanel, BorderLayout.CENTER);
 
         init();
     }
