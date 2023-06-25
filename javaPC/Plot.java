@@ -126,6 +126,24 @@ public class Plot extends JPanel {
             Dimension size = new Dimension(width, height);
             label.setSize(size);
             add(label);
+
+            if (i < axisCount) {
+                String minName = Float.toString(mins[i-1]);
+                JLabel minLabel = new JLabel(minName);
+                // Set the position of the label
+                int minXPos = lineSpacing * i;
+                minXPos -= (int)Math.floor(3*minName.length());
+                int minYPos = panelHeight - 50;
+                Point minPosition = new Point(minXPos, minYPos);
+                minLabel.setLocation(minPosition);
+
+                // Set the size of the label
+                int minWidth = 100;
+                int minHeight = 30;
+                Dimension minSize = new Dimension(minWidth, minHeight);
+                minLabel.setSize(minSize);
+                add(minLabel);
+            }
         }
 
         JLabel label = new JLabel("Dataset: " + dataset + " Sample count: " + (data.length-1));
