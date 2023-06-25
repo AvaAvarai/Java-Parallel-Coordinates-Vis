@@ -33,6 +33,8 @@ To plot a dataset make sure the class/id column is the last column.
 
 ## Early screenshots
 
+### Iris dataset with class labels
+![Iris dataset with class labels](screenshots/iris_with_class_labels.png)
 ### Iris dataset with class specific colors:  
 ![Iris dataset with class specific colors](screenshots/iris_with_class_specific_colors.png)
 ### Iris dataset with random colors:  
