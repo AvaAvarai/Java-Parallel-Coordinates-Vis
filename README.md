@@ -5,7 +5,7 @@ The implementation language is in Java and without any external dependencies.
 
 Parsed CSV files must have class/id in the lass column for now.  
 
-## How to use
+## How to run
 
 To plot a dataset make sure the class/id column is the last column.  
 - Start program with Java by running `JavaPC/Main.java`  
@@ -34,15 +34,9 @@ To plot a dataset make sure the class/id column is the last column.
 - hyperblock outlines  
 - nD datapoint highlighting  
 
-## Early screenshots
+## Screenshots
 
-### Iris dataset with class labels:  
-![Iris dataset with class labels](screenshots/iris_with_class_labels.png)
-### Iris dataset with class specific colors:  
-![Iris dataset with class specific colors](screenshots/iris_with_class_specific_colors.png)
-### Iris dataset with random colors:  
-![Iris dataset with random colors](screenshots/iris_with_random_colors.png)
-### first wbc diagnosis dataset render:  
-![first wbc diag render](screenshots/first_wbc_diag_render.png)
-### first mnist letters dataset render:  
-![first mnist letters render](screenshots/first_mnist_letters_render.png)
+### Iris dataset render:  
+![Iris dataset render](screenshots/iris_render.png)
+### Wisconsin breast cancer diagnosis render:  
+![Wisconsin breast cancer diagnosis render](screenshots/wbc_diag_render.png)
