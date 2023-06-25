@@ -22,7 +22,7 @@ public class Plot extends JPanel {
 
         // Set the preferred size of the panel
         setPreferredSize(new Dimension(1600, 750));
-
+        
         // Set the background color to light gray
         setBackground(Color.LIGHT_GRAY);
 
@@ -83,24 +83,10 @@ public class Plot extends JPanel {
             colorMap.put(name, randomColor);
         }
 
-        // draw axis lines and labels
+        // draw axis lines
         for (int i = 1; i <= axisCount; i++) {
             int x = lineSpacing * i;
             g.drawLine(x, margin, x, panelHeight - margin);
-            
-            JLabel label = new JLabel(data[0][i-1]);
-            // Set the position of the label
-            int xPos = x;
-            int yPos = margin/2;
-            Point position = new Point(xPos, yPos);
-            label.setLocation(position);
-
-            // Set the size of the label
-            int width = 100;
-            int height = 30;
-            Dimension size = new Dimension(width, height);
-            label.setSize(size);
-            add(label);
         }
         
         for (int j = 1; j < data.length; j++) {
@@ -119,6 +105,23 @@ public class Plot extends JPanel {
                     g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextPos);
                 }
             }
+        }
+
+        // draw axis labels
+        for (int i = 1; i <= axisCount; i++) {
+            JLabel label = new JLabel(data[0][i-1]);
+            // Set the position of the label
+            int xPos = (int)Math.floor(lineSpacing * 0.99 * i);
+            int yPos = 10;
+            Point position = new Point(xPos, yPos);
+            label.setLocation(position);
+
+            // Set the size of the label
+            int width = 100;
+            int height = 30;
+            Dimension size = new Dimension(width, height);
+            label.setSize(size);
+            add(label);
         }
     }
 }

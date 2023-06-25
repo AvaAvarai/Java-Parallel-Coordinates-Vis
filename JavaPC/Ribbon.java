@@ -22,7 +22,7 @@ import java.io.File;
  */
 public class Ribbon extends JPanel {
 
-    File loadedCSV; // @ TODO: make stateless
+    File loadedCSV;
 
     public Ribbon(Window parent) {
         // Set the preferred size of the panel

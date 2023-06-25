@@ -18,14 +18,19 @@ import java.awt.BorderLayout;
  */
 public class Window extends JFrame {
 
+    private int WIDTH = 1600;
+    private int HEIGHT = 800;
+
+    Plot pcPlot;
+
     public Window() {
         // Set the title of the frame
-        setTitle("JavaPC v0");
+        setTitle("JavaPC v0.0");
 
         setResizable(false);
 
         // Set the size of the frame
-        getContentPane().setPreferredSize(new Dimension(1600, 800));
+        getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         // Set the layout manager to FlowLayout
         setLayout(new BorderLayout());
@@ -71,8 +76,11 @@ public class Window extends JFrame {
     }
 
     public void render(String[][] data) {
-        Plot pcPlot = new Plot(data);
+        if (pcPlot != null) {
+            remove(pcPlot);
+        }
+        pcPlot = new Plot(data);
         add(pcPlot, BorderLayout.CENTER);
-        setVisible(true);
+        init();
     }
 }
