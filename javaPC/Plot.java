@@ -129,7 +129,7 @@ public class Plot extends JPanel {
             add(label);
 
             if (i < axisCount) {
-                DecimalFormat formatter = new DecimalFormat("#0.00");
+                DecimalFormat formatter = new DecimalFormat("0.##");
                 String maxName = formatter.format(maxes[i-1]);
                 
                 JLabel maxLabel = new JLabel(maxName);
@@ -148,6 +148,9 @@ public class Plot extends JPanel {
                 add(maxLabel);
 
                 String minName = formatter.format(mins[i-1]);
+                if (minName.equals("0.00")) {
+                    minName = "0";
+                }
                 JLabel minLabel = new JLabel(minName);
                 // Set the position of the label
                 int minXPos = lineSpacing * i;

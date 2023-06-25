@@ -1,7 +1,7 @@
 # JavaPC
 
-This program is for viewing a multidimensional (n-D) dataset in a parallel coordinates (PC) plot.  
-The implementation language is in Java and without any external dependencies.  
+Parallel Coordinates data visualization viewer for CSV stored multidimensional data, written in Java Swing.  
+The implementation language is in Java using Java Swing for GUI, without any external dependencies.  
 
 Parsed CSV files must have class/id in the lass column for now.  
 
