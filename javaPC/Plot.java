@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -128,7 +129,9 @@ public class Plot extends JPanel {
             add(label);
 
             if (i < axisCount) {
-                String maxName = Float.toString(maxes[i-1]);
+                DecimalFormat formatter = new DecimalFormat("#0.00");
+                String maxName = formatter.format(maxes[i-1]);
+                
                 JLabel maxLabel = new JLabel(maxName);
                 // Set the position of the label
                 int maxXPos = lineSpacing * i;
@@ -144,7 +147,7 @@ public class Plot extends JPanel {
                 maxLabel.setSize(maxSize);
                 add(maxLabel);
 
-                String minName = Float.toString(mins[i-1]);
+                String minName = formatter.format(mins[i-1]);
                 JLabel minLabel = new JLabel(minName);
                 // Set the position of the label
                 int minXPos = lineSpacing * i;
