@@ -39,4 +39,4 @@ To plot a dataset make sure the class/id column is the last column.
 ### Iris dataset render:  
 ![Iris dataset render](screenshots/iris_render.png)
 ### Wisconsin breast cancer diagnosis render:  
-![Wisconsin breast cancer diagnosis render](screenshots/wbc_diag_render.png)
+![Wisconsin breast cancer diagnosis render](screenshots/wbc_render.png)
