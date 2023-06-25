@@ -91,7 +91,7 @@ public class Ribbon extends JPanel {
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\datasets"));
 
         // Show the dialog and wait for user selection
-        int result = fileChooser.showOpenDialog(Ribbon.this);
+        int result = fileChooser.showOpenDialog(null);
 
         // If a file is selected, process it
         if (result != JFileChooser.APPROVE_OPTION) {
@@ -99,7 +99,6 @@ public class Ribbon extends JPanel {
         }
 
         File selectedFile = fileChooser.getSelectedFile();
-        JOptionPane.showMessageDialog(Ribbon.this, "CSV file selected: " + selectedFile.getAbsolutePath());
         
         // Check for CSV extension
         String fileName = selectedFile.getName();

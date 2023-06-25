@@ -88,7 +88,7 @@ public class Plot extends JPanel {
             int x = lineSpacing * i;
             g.drawLine(x, margin, x, panelHeight - margin);
             
-            JLabel label = new JLabel(data[0][i-1].strip());
+            JLabel label = new JLabel(data[0][i-1]);
             // Set the position of the label
             int xPos = x;
             int yPos = margin/2;
