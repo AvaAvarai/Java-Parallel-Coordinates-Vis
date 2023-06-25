@@ -49,7 +49,7 @@ public class Window extends JFrame {
 
         add(bottomPanel, BorderLayout.SOUTH); // Add the bottom panel to the SOUTH position
 
-        JLabel label = new JLabel("Please load a dataset.");
+        JLabel label = new JLabel("Please load a dataset with 'Load CSV' on UI ribbon below.");
     
         // Create an inner JPanel with FlowLayout and add the label
         JPanel innerPanel = new JPanel();

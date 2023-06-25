@@ -10,7 +10,7 @@ Parsed CSV files must have class/id in the lass column for now.
 To plot a dataset make sure the class/id column is the last column.  
 - Start program with Java by running `JavaPC/Main.java`  
 - Click 'Load CSV', pick your file  
-- Click 'Render'  
+- Click 'Render Plot'  
 
 ## Datasets
 

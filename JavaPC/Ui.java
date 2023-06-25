@@ -35,7 +35,7 @@ public class Ui extends JPanel {
 
         // Create the buttons
         JButton button1 = new JButton("Load CSV");
-        JButton button2 = new JButton("Render");
+        JButton button2 = new JButton("Render Plot");
 
         // Set the preferred width of the buttons
         button1.setPreferredSize(new Dimension(100, button1.getPreferredSize().height));
@@ -48,7 +48,7 @@ public class Ui extends JPanel {
                 loadedCSV = loadCSVFile();
                 if (loadedCSV == null) {
                     // Show a basic information message dialog
-                    JOptionPane.showMessageDialog(null, "This file is not a CSV!");
+                    JOptionPane.showMessageDialog(null, "The file selected is not a CSV, please try again.");
                     button2.setEnabled(false);
                 } else {
                     button2.setEnabled(true);
@@ -84,6 +84,10 @@ public class Ui extends JPanel {
     public File loadCSVFile() {
         // Create a file chooser dialog
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select a dataset file to load");
+
+        // open to datasets folder
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\datasets"));
 
         // Show the dialog and wait for user selection
         int result = fileChooser.showOpenDialog(this);
