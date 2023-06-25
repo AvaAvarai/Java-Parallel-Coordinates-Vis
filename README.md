@@ -1,16 +1,22 @@
 # JavaPC
 
-Parallel Coordinates n-D data visualization implementation in Java.  
+This program is for viewing a multidimensional (n-D) dataset in a parallel coordinates (PC) plot.  
+The implementation language is in Java and without any external dependencies.  
 
-Parses CSV files (must have class/id in the lass column for now) and displays in a parallel coordinates plot.  
+Parsed CSV files must have class/id in the lass column for now.  
 
 ## How to use
 
-Currently program plots a dataset in Parallel Coordinates and this is the only feature.  
 To plot a dataset make sure the class/id column is the last column.  
-- Start program with Java  
+- Start program with Java by running `JavaPC/Main.java`  
 - Click 'Load CSV', pick your file  
 - Click 'Render'  
+
+## Datasets
+
+- `iris.csv` - Fisher's Iris flower classification dataaset. Classes: Virginica, Versicolor, Setosa  
+- `mnist_letters.csv` - MNIST's capital letter dimensions of handwriting dataset. Classes: Capital letters A - Z  
+- `wbc_diag.csv` - Wisconsin breast cancer diagnosis dataset. Classes: Maglignant, Benign  
 
 ## Project Goals
 
