@@ -1,4 +1,4 @@
-package JavaPC;
+package javaPC;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -62,7 +62,7 @@ public class Ribbon extends JPanel {
             @Override
             public void actionPerformed(ActionEvent event) {
                 String[][] data = parseCSVFile(loadedCSV);
-                parent.render(data);
+                parent.render(loadedCSV.getName(), data);
         }});
 
         // Add the buttons to the panel with center alignment and left anchor

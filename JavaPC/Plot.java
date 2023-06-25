@@ -1,4 +1,4 @@
-package JavaPC;
+package javaPC;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,9 +15,11 @@ import java.util.HashMap;
  */
 public class Plot extends JPanel {
 
+    String dataset;
     String[][] data;
 
-    public Plot(String[][] data) {
+    public Plot(String dataset, String[][] data) {
+        this.dataset = dataset;
         this.data = data;
 
         // Set the preferred size of the panel
@@ -109,9 +111,11 @@ public class Plot extends JPanel {
 
         // draw axis labels
         for (int i = 1; i <= axisCount; i++) {
-            JLabel label = new JLabel(data[0][i-1]);
+            String name = data[0][i-1];
+            JLabel label = new JLabel(name);
             // Set the position of the label
-            int xPos = (int)Math.floor(lineSpacing * 0.99 * i);
+            int xPos = lineSpacing * i;
+            xPos -= (int)Math.floor(3*name.length());
             int yPos = 10;
             Point position = new Point(xPos, yPos);
             label.setLocation(position);
@@ -124,10 +128,10 @@ public class Plot extends JPanel {
             add(label);
         }
 
-        JLabel label = new JLabel("Sample count: " + (data.length-1));
+        JLabel label = new JLabel("Dataset: " + dataset + " Sample count: " + (data.length-1));
 
         // Set the size of the label
-        int width = 150;
+        int width = 500;
         int height = 30;
         Dimension size = new Dimension(width, height);
         label.setSize(size);

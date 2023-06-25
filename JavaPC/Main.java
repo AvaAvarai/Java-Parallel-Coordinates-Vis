@@ -1,4 +1,4 @@
-package JavaPC;
+package javaPC;
 
 // Main is the driver class to javaPC.
 

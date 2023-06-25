@@ -1,4 +1,4 @@
-package JavaPC;
+package javaPC;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -75,11 +75,11 @@ public class Window extends JFrame {
         setVisible(true);
     }
 
-    public void render(String[][] data) {
+    public void render(String dataset, String[][] data) {
         if (pcPlot != null) {
             remove(pcPlot);
         }
-        pcPlot = new Plot(data);
+        pcPlot = new Plot(dataset, data);
         add(pcPlot, BorderLayout.CENTER);
         init();
     }
