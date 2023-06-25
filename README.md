@@ -1,14 +1,14 @@
 # JavaPC
 
-Parallel Coordinates implementation in Java.  
+Parallel Coordinates n-D data visualization implementation in Java.  
 
 Parses CSV files (must have class/id in the lass column for now) and displays in a parallel coordinates plot.  
 
 ## TODO
 
-- last axis for class/id  
-- colors  
-- axis labels  
+- last axis plot for class/id  
+- class-specific colors  
+- axis name and range labels  
 
 ## Early screenshots
 
