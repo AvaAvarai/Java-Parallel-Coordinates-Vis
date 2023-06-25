@@ -128,6 +128,22 @@ public class Plot extends JPanel {
             add(label);
 
             if (i < axisCount) {
+                String maxName = Float.toString(maxes[i-1]);
+                JLabel maxLabel = new JLabel(maxName);
+                // Set the position of the label
+                int maxXPos = lineSpacing * i;
+                maxXPos -= (int)Math.floor(3*maxName.length());
+                int maxYPos = 25;
+                Point maxPosition = new Point(maxXPos, maxYPos);
+                maxLabel.setLocation(maxPosition);
+
+                // Set the size of the label
+                int maxWidth = 100;
+                int maxHeight = 30;
+                Dimension maxSize = new Dimension(maxWidth, maxHeight);
+                maxLabel.setSize(maxSize);
+                add(maxLabel);
+
                 String minName = Float.toString(mins[i-1]);
                 JLabel minLabel = new JLabel(minName);
                 // Set the position of the label

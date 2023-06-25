@@ -23,8 +23,7 @@ To plot a dataset make sure the class/id column is the last column.
 
 ## Project Goals
 
-- last axis plot class/id   
-- axis maximum labels  
+- last axis plot class/id  
 - class color legend  
 - generate contrasting class colors  
 - move dataset processing to preprocssing step on dataset load  
