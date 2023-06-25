@@ -2,8 +2,9 @@
 
 public class Main {
     public static void main(String[] args) {
-        
-        Window appWindow = new Window();        
+    
+        // Spawn window in center of active monitor
+        Window appWindow = new Window();
         appWindow.setLocationRelativeTo(null);
 
     }
