@@ -24,7 +24,7 @@ import java.io.File;
 public class Ribbon extends JPanel {
 
     protected static final int WIDTH = 250;
-    protected static final int HEIGHT = 50;
+    protected static final int HEIGHT = 30;
 
     private File loadedCSV;
 
