@@ -3,6 +3,7 @@ package javaPC;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,17 +23,20 @@ import java.io.File;
  */
 public class Ribbon extends JPanel {
 
-    File loadedCSV;
+    protected static final int WIDTH = 250;
+    protected static final int HEIGHT = 50;
+
+    private File loadedCSV;
 
     public Ribbon(Window parent) {
         // Set the preferred size of the panel
-        setPreferredSize(new Dimension(250, 50));
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         // Set the layout manager to GridBagLayout
         setLayout(new GridBagLayout());
 
         // Set the background color to a metallic color
-        setBackground(new Color(192, 192, 192));
+        setBackground(Color.LIGHT_GRAY);
 
         // Create the buttons
         JButton button1 = new JButton("Load CSV");
@@ -63,7 +67,8 @@ public class Ribbon extends JPanel {
             public void actionPerformed(ActionEvent event) {
                 String[][] data = parseCSVFile(loadedCSV);
                 parent.render(loadedCSV.getName(), data);
-        }});
+
+            }});
 
         // Add the buttons to the panel with center alignment and left anchor
         GridBagConstraints constraints = new GridBagConstraints();
@@ -113,7 +118,7 @@ public class Ribbon extends JPanel {
         return null;
     }
 
-    public String[][] parseCSVFile(File csvFile) {
+    private String[][] parseCSVFile(File csvFile) {
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             String line;
             int numRows = getNumRows(csvFile); // Get the number of rows in the CSV file

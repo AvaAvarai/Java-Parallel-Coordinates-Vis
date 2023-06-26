@@ -16,15 +16,16 @@ import java.util.HashMap;
  */
 public class Plot extends JPanel {
 
-    String dataset;
-    String[][] data;
+    private static final int WIDTH = 1600;
+    private static final int HEIGHT = 750;
 
-    public Plot(String dataset, String[][] data) {
-        this.dataset = dataset;
+    private String[][] data;
+
+    public Plot(String[][] data) {
         this.data = data;
 
         // Set the preferred size of the panel
-        setPreferredSize(new Dimension(1600, 750));
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
         
         // Set the background color to light gray
         setBackground(Color.LIGHT_GRAY);
@@ -51,7 +52,6 @@ public class Plot extends JPanel {
         float[] mins = new float[axisCount - 1]; // init to all max values
         Arrays.fill(mins, Float.MAX_VALUE);
 
-        // TODO: Move to a preprocessing step.
         for (int j = 1; j < data.length; j++) {
             for (int i = 0; i < axisCount; i++) {
                 if (i == axisCount - 1) {
@@ -129,37 +129,39 @@ public class Plot extends JPanel {
             add(label);
 
             if (i < axisCount) {
+                // label float formatting
                 DecimalFormat formatter = new DecimalFormat("0.##");
                 String maxName = formatter.format(maxes[i-1]);
                 
+                // Max axis value label
                 JLabel maxLabel = new JLabel(maxName);
-                // Set the position of the label
+
+                // label position
                 int maxXPos = lineSpacing * i;
                 maxXPos -= (int)Math.floor(3*maxName.length());
                 int maxYPos = 25;
                 Point maxPosition = new Point(maxXPos, maxYPos);
                 maxLabel.setLocation(maxPosition);
 
-                // Set the size of the label
+                // label size
                 int maxWidth = 100;
                 int maxHeight = 30;
                 Dimension maxSize = new Dimension(maxWidth, maxHeight);
                 maxLabel.setSize(maxSize);
                 add(maxLabel);
 
+                // min axis value label
                 String minName = formatter.format(mins[i-1]);
-                if (minName.equals("0.00")) {
-                    minName = "0";
-                }
                 JLabel minLabel = new JLabel(minName);
-                // Set the position of the label
+
+                // label position
                 int minXPos = lineSpacing * i;
                 minXPos -= (int)Math.floor(3*minName.length());
-                int minYPos = panelHeight - 50;
+                int minYPos = panelHeight - 55;
                 Point minPosition = new Point(minXPos, minYPos);
                 minLabel.setLocation(minPosition);
 
-                // Set the size of the label
+                // label size
                 int minWidth = 100;
                 int minHeight = 30;
                 Dimension minSize = new Dimension(minWidth, minHeight);
@@ -167,21 +169,5 @@ public class Plot extends JPanel {
                 add(minLabel);
             }
         }
-
-        JLabel label = new JLabel("Dataset: " + dataset + " Sample count: " + (data.length-1));
-
-        // Set the size of the label
-        int width = 500;
-        int height = 30;
-        Dimension size = new Dimension(width, height);
-        label.setSize(size);
-
-        // Set the position of the label
-        int xPos = 10;
-        int yPos = panelHeight - height;
-        Point position = new Point(xPos, yPos);
-        label.setLocation(position);
-
-        add(label);
     }
 }

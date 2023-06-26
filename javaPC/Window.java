@@ -18,14 +18,16 @@ import java.awt.BorderLayout;
  */
 public class Window extends JFrame {
 
-    private int WIDTH = 1600;
-    private int HEIGHT = 800;
+    private static final String TITLE = "JavaPC v0.0 - Parallel Coordinates";
 
-    Plot pcPlot;
+    private static final int WIDTH = 1600;
+    private static final int HEIGHT = 800;
+
+    private Plot pcPlot;
 
     public Window() {
         // Set the title of the frame
-        setTitle("JavaPC v0.0");
+        setTitle(TITLE);
 
         setResizable(false);
 
@@ -44,7 +46,7 @@ public class Window extends JFrame {
         Ribbon ribbon = new Ribbon(this);
 
         JPanel bottomPanel = new JPanel(); // Create a separate panel for the uiPanel
-        bottomPanel.setBackground(Color.darkGray); // Adjust the color as needed
+        bottomPanel.setBackground(Color.LIGHT_GRAY); // Adjust the color as needed
         bottomPanel.setLayout(new GridBagLayout()); // Use GridBagLayout for the bottom panel
 
         // Create a GridBagConstraints instance to control the layout of components
@@ -79,7 +81,8 @@ public class Window extends JFrame {
         if (pcPlot != null) {
             remove(pcPlot);
         }
-        pcPlot = new Plot(dataset, data);
+        setTitle(TITLE + " - " + dataset + " - " + (data.length - 1) + " Samples");
+        pcPlot = new Plot(data);
         add(pcPlot, BorderLayout.CENTER);
         init();
     }
