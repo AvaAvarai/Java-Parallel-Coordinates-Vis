@@ -36,9 +36,8 @@ public class Window extends JFrame {
 
         // Set the layout manager to FlowLayout
         setLayout(new BorderLayout());
-
-        // Set the background color to bright green
-        getContentPane().setBackground(Color.DARK_GRAY);
+        
+        getContentPane().setBackground(Color.WHITE);
 
         // Exit the application when the frame is closed
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

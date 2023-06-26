@@ -57,7 +57,7 @@ public class Plot extends JPanel {
         }
         
         // Set the background color to light gray
-        setBackground(Color.LIGHT_GRAY);
+        setBackground(Color.WHITE);
 
         setVisible(true);
     }
@@ -128,7 +128,7 @@ public class Plot extends JPanel {
             label.setLocation(position);
 
             // Set the size of the label
-            int width = 100;
+            int width = 150;
             int height = 15;
             Dimension size = new Dimension(width, height);
             label.setSize(size);
