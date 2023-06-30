@@ -97,21 +97,33 @@ public class PlotPanel extends JPanel {
             g.drawLine(x, 35, x, panelHeight - margin);
         }
         
+        HashMap<String, Integer> classNums = new HashMap<>();
+        int next = margin;
         for (int j = 1; j < data.length; j++) {
             for (int i = 1; i < axisCount; i++) {
                 int x = lineSpacing * i;
-                Float dataPnt = Float.parseFloat(data[j][i-1]);
-
                 g.setColor(colorMap.get(data[j][axisCount - 1]));
+                // n datapoint
+                Float dataPnt = Float.parseFloat(data[j][i-1]);
                 int pos = Math.round((panelHeight + 35 - margin - margin) * ((dataPnt - mins[i-1]) / (maxes[i-1] - mins[i-1])) + margin);
-
-                g.fillOval(x - 3, panelHeight - pos - 3, 6, 6);
-
                 if (i < axisCount - 1) {
+                    // n+1 datapoint
                     Float nextDataPnt = Float.parseFloat(data[j][i]);
                     int nextPos = Math.round((panelHeight + 35 - margin - margin) * ((nextDataPnt - mins[i]) / (maxes[i] - mins[i])) + margin);
-                    
+                    // draw n datapoint
+                    g.fillOval(x - 3, panelHeight - pos - 3, 6, 6);
+                    // connect n to n+1 datapoints with an edge
                     g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextPos);
+                } else if (i == axisCount - 1){
+                    String className = data[j][i];
+                    if (classNums.containsKey(className)) {
+                        int nextDataPnt = classNums.get(className);
+                        g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextDataPnt);
+                    } else {
+                        classNums.put(className, next);
+                        next++;
+                    }
+
                 }
             }
         }

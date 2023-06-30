@@ -55,7 +55,7 @@ public class CsvParser {
                 }
                 row++;
             }
-
+            
             return data;
 
         } catch (IOException e) {
