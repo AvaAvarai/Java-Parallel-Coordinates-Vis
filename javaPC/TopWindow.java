@@ -16,16 +16,16 @@ import java.awt.BorderLayout;
 /**
  * Window container class
  */
-public class Window extends JFrame {
+public class TopWindow extends JFrame {
 
     private static final String TITLE = "JavaPC v0.0 - Parallel Coordinates";
 
     private static final int WIDTH = 1600;
     private static final int HEIGHT = 800;
 
-    private Plot pcPlot;
+    private PlotPanel pcPlot;
 
-    public Window() {
+    protected TopWindow() {
         // Set the title of the frame
         setTitle(TITLE);
 
@@ -42,7 +42,7 @@ public class Window extends JFrame {
         // Exit the application when the frame is closed
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Ribbon ribbon = new Ribbon(this);
+        UiRibbon ribbon = new UiRibbon(this);
 
         JPanel bottomPanel = new JPanel(); // Create a separate panel for the uiPanel
         bottomPanel.setBackground(Color.LIGHT_GRAY); // Adjust the color as needed
@@ -71,17 +71,17 @@ public class Window extends JFrame {
         init();
     }
 
-    public void init() {
+    protected void init() {
         pack();
         setVisible(true);
     }
 
-    public void render(String dataset, String[][] data) {
+    protected void render(String dataset, String[][] data) {
         if (pcPlot != null) {
             remove(pcPlot);
         }
         setTitle(TITLE + " - " + dataset + " - " + (data.length - 1) + " Samples");
-        pcPlot = new Plot(data);
+        pcPlot = new PlotPanel(data);
         add(pcPlot, BorderLayout.CENTER);
         init();
     }

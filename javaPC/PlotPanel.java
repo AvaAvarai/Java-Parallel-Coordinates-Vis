@@ -14,7 +14,7 @@ import java.util.HashMap;
 /**
  * Plot renderer class
  */
-public class Plot extends JPanel {
+public class PlotPanel extends JPanel {
 
     private static final int WIDTH = 1600;
     private static final int HEIGHT = 750;
@@ -23,7 +23,7 @@ public class Plot extends JPanel {
 
     private String[][] data;
 
-    public Plot(String[][] data) {
+    protected PlotPanel(String[][] data) {
         this.data = data;
 
         // Set the preferred size of the panel

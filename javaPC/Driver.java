@@ -2,11 +2,11 @@ package javaPC;
 
 // Main is the driver class to javaPC.
 
-public class Main {
+public class Driver {
     public static void main(String[] args) {
     
         // Spawn window in center of active monitor
-        Window appWindow = new Window();
+        TopWindow appWindow = new TopWindow();
         appWindow.setLocationRelativeTo(null);
 
     }
