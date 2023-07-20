@@ -57,7 +57,7 @@ public class PlotPanel extends JPanel {
         }
         
         // Set the background color to light gray
-        setBackground(Color.WHITE);
+        setBackground(Color.GRAY);
 
         setVisible(true);
     }
@@ -98,7 +98,7 @@ public class PlotPanel extends JPanel {
         }
         
         HashMap<String, Integer> classNums = new HashMap<>();
-        int next = margin;
+        int next = 0;
         for (int j = 1; j < data.length; j++) {
             for (int i = 1; i < axisCount; i++) {
                 int x = lineSpacing * i;
@@ -116,14 +116,14 @@ public class PlotPanel extends JPanel {
                     g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextPos);
                 } else if (i == axisCount - 1){
                     String className = data[j][i];
+                    
                     if (classNums.containsKey(className)) {
-                        int nextDataPnt = classNums.get(className);
+                        int nextDataPnt = (panelHeight + 35 - margin - margin) * classNums.get(className) / colorMap.size() + margin;
                         g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextDataPnt);
                     } else {
                         classNums.put(className, next);
                         next++;
                     }
-
                 }
             }
         }
