@@ -111,7 +111,7 @@ public class PlotPanel extends JPanel {
                     Float nextDataPnt = Float.parseFloat(data[j][i]);
                     int nextPos = Math.round((panelHeight + 35 - margin - margin) * ((nextDataPnt - mins[i]) / (maxes[i] - mins[i])) + margin);
                     // draw n datapoint
-                    g.fillOval(x - 3, panelHeight - pos - 3, 6, 6);
+                    g.fillOval(x - 3, panelHeight - pos - 3, 5, 5);
                     // connect n to n+1 datapoints with an edge
                     g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextPos);
                 } else if (i == axisCount - 1){
@@ -119,15 +119,15 @@ public class PlotPanel extends JPanel {
                     
                     if (classNums.containsKey(className)) {
                         int nextDataPnt = (panelHeight + 35 - margin - margin) * classNums.get(className) / colorMap.size() + margin;
-                        g.fillOval(x - 3, panelHeight - pos - 3, 6, 6);
+                        g.fillOval(x - 3, panelHeight - pos - 3, 5, 5);
                         g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextDataPnt);
                         JLabel label = new JLabel(className);
+                        label.setForeground(colorMap.get(className));
                         int xPos = lineSpacing * (i+1) + className.length() * 4;
                         xPos -= (int)Math.floor(2*className.length());
                         int yPos = panelHeight - nextDataPnt - 10;
                         Point position = new Point(xPos, yPos);
                         label.setLocation(position);
-
                         // Set the size of the label
                         int width = 150;
                         int height = 15;
