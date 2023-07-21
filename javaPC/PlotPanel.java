@@ -94,7 +94,9 @@ public class PlotPanel extends JPanel {
         // draw axis lines
         for (int i = 1; i <= axisCount; i++) {
             int x = lineSpacing * i;
+            g.drawLine(x-1, 35, x-1, panelHeight - margin);
             g.drawLine(x, 35, x, panelHeight - margin);
+            g.drawLine(x+1, 35, x+1, panelHeight - margin);
         }
         
         HashMap<String, Integer> classNums = new HashMap<>();
@@ -111,7 +113,7 @@ public class PlotPanel extends JPanel {
                     Float nextDataPnt = Float.parseFloat(data[j][i]);
                     int nextPos = Math.round((panelHeight + 35 - margin - margin) * ((nextDataPnt - mins[i]) / (maxes[i] - mins[i])) + margin);
                     // draw n datapoint
-                    g.fillOval(x - 3, panelHeight - pos - 3, 5, 5);
+                    g.fillOval(x - 4, panelHeight - pos - 4, 7, 7);
                     // connect n to n+1 datapoints with an edge
                     g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextPos);
                 } else if (i == axisCount - 1){
@@ -119,7 +121,7 @@ public class PlotPanel extends JPanel {
                     
                     if (classNums.containsKey(className)) {
                         int nextDataPnt = (panelHeight + 35 - margin - margin) * classNums.get(className) / colorMap.size() + margin;
-                        g.fillOval(x - 3, panelHeight - pos - 3, 5, 5);
+                        g.fillOval(x - 4, panelHeight - pos - 4, 7, 7);
                         g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextDataPnt);
                         JLabel label = new JLabel(className);
                         label.setForeground(colorMap.get(className));
