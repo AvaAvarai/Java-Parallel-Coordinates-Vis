@@ -1,9 +1,9 @@
 # JavaPC
 
-Parallel Coordinates data visualization viewer for CSV stored multidimensional data.  
-Written in Java Swing using Java Swing for GUI, without any external dependencies.  
+Parallel Coordinates (PC) visualization tool for CSV stored multidimensional/multivariate data.  
+Written in Java using Java Swing for GUI, with no external dependencies.  
 
-*Parsed CSV files must have class/id in the lass column for now.*  
+*Parsed CSV files must have class/id in the last column for now.*  
 
 ## How to run
 
