@@ -45,9 +45,9 @@ public class PlotPanel extends JPanel {
         colorMap = new HashMap<>();
         for (String name : classNames) {
              // Generate random RGB values
-            int red = (int) (Math.random() * 256);
-            int green = (int) (Math.random() * 256);
-            int blue = (int) (Math.random() * 256);
+            int red = (int) (Math.random() * 255);
+            int green = (int) (Math.random() * 255);
+            int blue = (int) (Math.random() * 255);
 
             // Create a random color
             Color randomColor = new Color(red, green, blue);
@@ -57,7 +57,7 @@ public class PlotPanel extends JPanel {
         }
         
         // Set the background color to light gray
-        setBackground(Color.GRAY);
+        setBackground(Color.WHITE);
 
         setVisible(true);
     }
@@ -120,6 +120,19 @@ public class PlotPanel extends JPanel {
                     if (classNums.containsKey(className)) {
                         int nextDataPnt = (panelHeight + 35 - margin - margin) * classNums.get(className) / colorMap.size() + margin;
                         g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextDataPnt);
+                        JLabel label = new JLabel(className);
+                        int xPos = lineSpacing * (i+1) + className.length() * 4;
+                        xPos -= (int)Math.floor(3*className.length());
+                        int yPos = panelHeight - nextDataPnt - 10;
+                        Point position = new Point(xPos, yPos);
+                        label.setLocation(position);
+
+                        // Set the size of the label
+                        int width = 150;
+                        int height = 15;
+                        Dimension size = new Dimension(width, height);
+                        label.setSize(size);
+                        add(label);
                     } else {
                         classNums.put(className, next);
                         next++;
