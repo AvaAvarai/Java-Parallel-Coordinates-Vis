@@ -119,10 +119,11 @@ public class PlotPanel extends JPanel {
                     
                     if (classNums.containsKey(className)) {
                         int nextDataPnt = (panelHeight + 35 - margin - margin) * classNums.get(className) / colorMap.size() + margin;
+                        g.fillOval(x - 3, panelHeight - pos - 3, 6, 6);
                         g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextDataPnt);
                         JLabel label = new JLabel(className);
                         int xPos = lineSpacing * (i+1) + className.length() * 4;
-                        xPos -= (int)Math.floor(3*className.length());
+                        xPos -= (int)Math.floor(2*className.length());
                         int yPos = panelHeight - nextDataPnt - 10;
                         Point position = new Point(xPos, yPos);
                         label.setLocation(position);

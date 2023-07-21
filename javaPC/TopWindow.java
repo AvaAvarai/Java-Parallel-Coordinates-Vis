@@ -60,7 +60,7 @@ public class TopWindow extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH); // Add the bottom panel to the SOUTH position
 
         JLabel prompt = new JLabel("Please load a dataset with 'Load CSV' on UI ribbon below.");
-        prompt.setFont(new Font("Arial", Font.PLAIN, 14));
+        prompt.setFont(new Font("Arial", Font.PLAIN, 16));
     
         // Create an inner JPanel with FlowLayout and add the label
         JPanel innerPanel = new JPanel();

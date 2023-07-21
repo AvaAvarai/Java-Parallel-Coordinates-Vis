@@ -23,13 +23,10 @@ To plot a dataset make sure the class/id column is the last column.
 
 ## Project Goals
 
-- last axis plot class/id  
-- class color legend  
 - generate contrasting class colors  
 - move dataset processing to preprocssing step on dataset load  
 - dataset class abstraction to store mins, maxes, names, classCount  
 - detect class/id column on dataset load  
-- other dataset formats (.txt, .pdf?)
 - axis inversion buttons below each axis  
 - hyperblock outlines  
 - nD datapoint highlighting  
@@ -40,3 +37,6 @@ To plot a dataset make sure the class/id column is the last column.
 ![Iris dataset render](screenshots/iris_render.png)
 ### Wisconsin breast cancer diagnosis render:  
 ![Wisconsin breast cancer diagnosis render](screenshots/wbc_render.png)
+### MNIST render:  
+![Wisconsin render](screenshots/MNIST_render.png)
+
