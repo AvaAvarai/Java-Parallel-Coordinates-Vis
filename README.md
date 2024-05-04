@@ -1,4 +1,4 @@
-# JavaPC
+# Java Parallel Coordinates Vis
 
 Parallel Coordinates (PC) visualization tool for CSV stored multidimensional/multivariate data.  
 Written in Java using Java Swing for GUI, with no external dependencies.  
