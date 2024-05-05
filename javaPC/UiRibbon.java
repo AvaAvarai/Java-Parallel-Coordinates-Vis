@@ -43,7 +43,8 @@ public class UiRibbon extends JPanel {
             @Override
             public void actionPerformed(ActionEvent event) {
                 // Open a color chooser dialog and get the selected color
-                Color newColor = JColorChooser.showDialog(null, "Choose Background Color", parent.getPlotPanel().getBackground());
+                ThemedColorPicker colorPicker = new ThemedColorPicker(parent);
+                Color newColor = colorPicker.pickColor();
                 if (newColor != null) {
                     parent.getPlotPanel().setBackgroundColor(newColor); // Assuming parent.getPlotPanel() method exists
                 }
