@@ -11,8 +11,8 @@ import java.io.File;
  */
 public class UiRibbon extends JPanel {
 
-    protected static final int WIDTH = 600;
-    protected static final int HEIGHT = 30;
+    protected static final int WIDTH = 1000;
+    protected static final int HEIGHT = 60;
 
     private File loadedCSV;
 
@@ -31,6 +31,24 @@ public class UiRibbon extends JPanel {
         JButton buttonRenderPlot = new JButton("Render Plot");
         JButton buttonToggleAxisNames = new JButton("Toggle Labels");
         JButton buttonChangeBackground = new JButton("Change Background");
+        JSlider transparencySlider = new JSlider(0, 100, 100);
+
+        // Configure the slider for transparency
+        transparencySlider.setPreferredSize(new Dimension(150, 50));
+        transparencySlider.setMajorTickSpacing(25);
+        transparencySlider.setMinorTickSpacing(5);
+        transparencySlider.setPaintTicks(true);
+        transparencySlider.setPaintLabels(true);
+        JLabel sliderLabel = new JLabel("Transparency");
+        sliderLabel.setLabelFor(transparencySlider);
+
+        // Listener for the transparency slider
+        transparencySlider.addChangeListener(e -> {
+            if (!transparencySlider.getValueIsAdjusting()) {
+                float alpha = transparencySlider.getValue() / 100f;
+                parent.getPlotPanel().setAlpha(alpha); // Assuming there's a method to set background alpha
+            }
+        });
 
         // Set the preferred width of the buttons
         buttonLoadCSV.setPreferredSize(new Dimension(120, buttonLoadCSV.getPreferredSize().height));
@@ -106,18 +124,18 @@ public class UiRibbon extends JPanel {
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(0, 10, 0, 0);
-
+        
         add(buttonLoadCSV, constraints);
-
-        constraints.gridx = 1;
+        constraints.gridx++;
         add(buttonRenderPlot, constraints);
-
-        constraints.gridx = 2;
+        constraints.gridx++;
         add(buttonToggleAxisNames, constraints);
-
-        // Adding the button to the UiRibbon
-        constraints.gridx = 3;
+        constraints.gridx++;
         add(buttonChangeBackground, constraints);
+        constraints.gridx++;
+        add(sliderLabel, constraints);
+        constraints.gridx++;
+        add(transparencySlider, constraints);
 
         setVisible(true);
     }

@@ -29,6 +29,16 @@ public class PlotPanel extends JPanel {
     private boolean showAxisNames = true;
     private static Color backgroundColor = Color.WHITE;
 
+    public void setAlpha(float alpha) {
+        // set all class color alphas
+        for (String className : colorMap.keySet()) {
+            Color color = colorMap.get(className);
+            colorMap.put(className, new Color(color.getRed(), color.getGreen(), color.getBlue(), Math.round(alpha * 255)));
+        }
+        removeAll();
+        repaint();
+    }
+
     public void setBackgroundColor(Color color) {
         setBackground(color);
         backgroundColor = color;
@@ -85,7 +95,7 @@ public class PlotPanel extends JPanel {
         super.paintComponent(g);
 
         int panelWidth = getWidth();
-        int panelHeight = getHeight();
+        int panelHeight = getHeight() + 40;
         int margin = 70;
 
         int axisCount = data[0].length;
@@ -237,7 +247,7 @@ public class PlotPanel extends JPanel {
         }
         
         // Draw a legend for the class colors
-        int legendX = 0;
+        int legendX = 10;
         int legendY = 50;
         int legendWidth = 20;
         // get longest class name
@@ -248,7 +258,7 @@ public class PlotPanel extends JPanel {
             }
         }
         // calculate legendwidth
-        legendWidth += longest * 6 + 15;
+        legendWidth += longest * 5 + 8;
 
         int legendHeight = 20 * classNums.size();
         g.setColor(Color.WHITE);
@@ -263,6 +273,7 @@ public class PlotPanel extends JPanel {
             g.setColor(colorMap.get(className));
             g.fillRect(legendX + legendMargin, legendTextY - 10, 10, 10);
             g.setColor(Color.BLACK);
+            g.setFont(g.getFont().deriveFont(11.0f));
             g.drawString(className, legendTextX + 15, legendTextY);
             legendTextY += legendSpacing;
         }
