@@ -27,9 +27,18 @@ public class PlotPanel extends JPanel {
 
     private String[][] data;
     private boolean showAxisNames = true;
+    private static Color backgroundColor = Color.WHITE;
+
+    public void setBackgroundColor(Color color) {
+        setBackground(color);
+        backgroundColor = color;
+        removeAll();
+        repaint(); // Repaint the panel with the new background color
+    }    
 
     public void setShowAxisNames(boolean showAxisNames) {
         this.showAxisNames = showAxisNames;
+        removeAll();
         repaint();
     }
 
@@ -66,8 +75,7 @@ public class PlotPanel extends JPanel {
             colorMap.put(name, randomColor);
         }
         
-        // Set the background color to light gray
-        setBackground(Color.WHITE);
+        setBackground(backgroundColor);
 
         setVisible(true);
     }

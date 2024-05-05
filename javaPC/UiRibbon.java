@@ -2,6 +2,7 @@ package javaPC;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,7 +18,7 @@ import java.io.File;
  */
 public class UiRibbon extends JPanel {
 
-    protected static final int WIDTH = 400;
+    protected static final int WIDTH = 600;
     protected static final int HEIGHT = 30;
 
     private File loadedCSV;
@@ -83,6 +84,19 @@ public class UiRibbon extends JPanel {
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(0, 10, 0, 0);
 
+        JButton buttonChangeBackground = new JButton("Change Background");
+        buttonChangeBackground.setPreferredSize(new Dimension(160, buttonChangeBackground.getPreferredSize().height));
+        buttonChangeBackground.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                // Open a color chooser dialog and get the selected color
+                Color newColor = JColorChooser.showDialog(null, "Choose Background Color", parent.getPlotPanel().getBackground());
+                if (newColor != null) {
+                    parent.getPlotPanel().setBackgroundColor(newColor); // Assuming parent.getPlotPanel() method exists
+                }
+            }
+        });
+
         add(buttonLoadCSV, constraints);
 
         constraints.gridx = 1;
@@ -90,6 +104,10 @@ public class UiRibbon extends JPanel {
 
         constraints.gridx = 2;
         add(buttonToggleAxisNames, constraints);
+
+        // Adding the button to the UiRibbon
+        constraints.gridx = 3;
+        add(buttonChangeBackground, constraints);
 
         setVisible(true);
     }
