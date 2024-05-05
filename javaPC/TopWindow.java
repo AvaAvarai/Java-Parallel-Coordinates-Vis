@@ -13,6 +13,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.BorderLayout;
 
+import java.util.HashMap;
+
 /**
  * Window container class
  */
@@ -80,9 +82,30 @@ public class TopWindow extends JFrame {
         if (pcPlot != null) {
             remove(pcPlot);
         }
-        setTitle(TITLE + " - " + dataset + " - " + (data.length - 1) + " Cases");
+    
+        // Count cases per class
+        HashMap<String, Integer> classCounts = new HashMap<>();
+        for (int i = 1; i < data.length; i++) {  // Assuming the first row is headers
+            String className = data[i][data[i].length - 1];  // Assuming the class column is the last
+            classCounts.put(className, classCounts.getOrDefault(className, 0) + 1);
+        }
+    
+        // Format the cases per class information for the title
+        StringBuilder casesPerClass = new StringBuilder();
+        for (String key : classCounts.keySet()) {
+            casesPerClass.append(key + ": " + classCounts.get(key) + ", ");
+        }
+    
+        // Remove the last comma and space if there is any content
+        if (casesPerClass.length() > 0) {
+            casesPerClass.setLength(casesPerClass.length() - 2);
+        }
+    
+        // Update the title with dataset name, total cases, and cases per class
+        setTitle(TITLE + " - " + dataset + " - " + (data.length - 1) + " Cases - [" + casesPerClass.toString() + "]");
+        
         pcPlot = new PlotPanel(data);
         add(pcPlot, BorderLayout.CENTER);
         init();
-    }
+    }    
 }

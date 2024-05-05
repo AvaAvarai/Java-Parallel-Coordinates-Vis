@@ -89,7 +89,6 @@ public class PlotPanel extends JPanel {
                 try {
                     dataPnt = Float.parseFloat(data[j][i]);
                 } catch (NumberFormatException e) {
-                    // give java swing error popup "dataset contains non-numeric values or class column is not last column"
                     SwingUtilities.invokeLater(() -> {
                         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
                         JOptionPane.showMessageDialog(parentFrame, "Dataset contains non-numeric values or class column is not last column.");
