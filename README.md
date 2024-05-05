@@ -2,6 +2,10 @@
 
 Java Parallel Coordinates Visualization Tool, visualizing multidimensional/multivariate CSV data with Java Swing.
 
+## What are Parallel Coordinates
+
+"Parallel Coordinates plots are a common method of visualizing high-dimensional datasets to analyze multivariate data having multiple variables, or attributes." [Wikipedia](https://en.wikipedia.org/wiki/Parallel_coordinates)
+
 ## Prerequisites
 
 Make sure Java is installed on your system to compile and run this application.
