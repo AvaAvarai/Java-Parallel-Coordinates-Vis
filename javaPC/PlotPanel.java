@@ -1,7 +1,11 @@
 package javaPC;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -81,7 +85,18 @@ public class PlotPanel extends JPanel {
 
         for (int j = 1; j < data.length; j++) {
             for (int i = 0; i < axisCount - 1; i++) {
-                Float dataPnt = Float.parseFloat(data[j][i]);
+                float dataPnt = 0;
+                try {
+                    dataPnt = Float.parseFloat(data[j][i]);
+                } catch (NumberFormatException e) {
+                    // give java swing error popup "dataset contains non-numeric values or class column is not last column"
+                    SwingUtilities.invokeLater(() -> {
+                        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                        JOptionPane.showMessageDialog(parentFrame, "Dataset contains non-numeric values or class column is not last column.");
+                        parentFrame.setTitle(TopWindow.TITLE);
+                    });
+                    return;
+                }
                 if (dataPnt > maxes[i]) {
                     maxes[i] = dataPnt;
                 }

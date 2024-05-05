@@ -35,7 +35,7 @@ The Makefile in this project simplifies the process of compiling Java files and 
 - **Compile Java Files and Build the JAR**: This single command compiles all `.java` files within the `javaPC` directory and packages the compiled `.class` files into a JAR file, including the specified manifest.
 
   ```bash
-  make all
+  make
   ```
 
 - **Clean**: Removes all compiled .class files and the generated JAR file to clean the project directory.

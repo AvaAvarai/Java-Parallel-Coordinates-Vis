@@ -18,7 +18,7 @@ import java.awt.BorderLayout;
  */
 public class TopWindow extends JFrame {
 
-    private static final String TITLE = "Java Parallel Coordinates Visualization Tool";
+    protected static final String TITLE = "Java Parallel Coordinates Visualization Tool";
 
     private static final int WIDTH = 1600;
     private static final int HEIGHT = 800;
