@@ -26,6 +26,12 @@ public class PlotPanel extends JPanel {
     private HashMap<String, Color> colorMap;
 
     private String[][] data;
+    private boolean showAxisNames = true;
+
+    public void setShowAxisNames(boolean showAxisNames) {
+        this.showAxisNames = showAxisNames;
+        repaint();
+    }
 
     protected PlotPanel(String[][] data) {
         this.data = data;
@@ -143,13 +149,15 @@ public class PlotPanel extends JPanel {
                         xPos -= (int)Math.floor(2*className.length());
                         int yPos = panelHeight - nextDataPnt - 10;
                         Point position = new Point(xPos, yPos);
-                        label.setLocation(position);
-                        // Set the size of the label
-                        int width = 150;
-                        int height = 15;
-                        Dimension size = new Dimension(width, height);
-                        label.setSize(size);
-                        add(label);
+                        if (showAxisNames) {
+                            label.setLocation(position);
+                            // Set the size of the label
+                            int width = 150;
+                            int height = 15;
+                            Dimension size = new Dimension(width, height);
+                            label.setSize(size);
+                            add(label);
+                        }
                     } else {
                         classNums.put(className, next);
                         next++;
@@ -157,95 +165,108 @@ public class PlotPanel extends JPanel {
                 }
             }
         }
+        
+        if (showAxisNames) {
+            // draw axis labels
+            for (int i = 1; i <= axisCount; i++) {
+                String name = data[0][i-1];
+                JLabel label = new JLabel(name);
+                // Set the position of the label
+                int xPos = lineSpacing * i;
+                xPos -= (int)Math.floor(3*name.length());
+                int yPos = 5;
+                Point position = new Point(xPos, yPos);
+                label.setLocation(position);
 
-        // draw axis labels
-        for (int i = 1; i <= axisCount; i++) {
-            String name = data[0][i-1];
-            JLabel label = new JLabel(name);
-            // Set the position of the label
-            int xPos = lineSpacing * i;
-            xPos -= (int)Math.floor(3*name.length());
-            int yPos = 5;
-            Point position = new Point(xPos, yPos);
-            label.setLocation(position);
+                // Set the size of the label
+                int width = 150;
+                int height = 15;
+                Dimension size = new Dimension(width, height);
+                label.setSize(size);
+                add(label);
 
-            // Set the size of the label
-            int width = 150;
-            int height = 15;
-            Dimension size = new Dimension(width, height);
-            label.setSize(size);
-            add(label);
+                if (i < axisCount) {
+                    // label float formatting
+                    DecimalFormat formatter = new DecimalFormat("0.##");
+                    String maxName = formatter.format(maxes[i-1]);
+                    
+                    // Max axis value label
+                    JLabel maxLabel = new JLabel(maxName);
 
-            if (i < axisCount) {
-                // label float formatting
-                DecimalFormat formatter = new DecimalFormat("0.##");
-                String maxName = formatter.format(maxes[i-1]);
-                
-                // Max axis value label
-                JLabel maxLabel = new JLabel(maxName);
+                    // label position
+                    int maxXPos = lineSpacing * i;
+                    maxXPos -= (int)Math.floor(3*maxName.length());
+                    int maxYPos = 18;
+                    Point maxPosition = new Point(maxXPos, maxYPos);
+                    maxLabel.setLocation(maxPosition);
 
-                // label position
-                int maxXPos = lineSpacing * i;
-                maxXPos -= (int)Math.floor(3*maxName.length());
-                int maxYPos = 18;
-                Point maxPosition = new Point(maxXPos, maxYPos);
-                maxLabel.setLocation(maxPosition);
+                    // label size
+                    int maxWidth = 50;
+                    int maxHeight = 15;
+                    Dimension maxSize = new Dimension(maxWidth, maxHeight);
+                    maxLabel.setSize(maxSize);
+                    add(maxLabel);
 
-                // label size
-                int maxWidth = 50;
-                int maxHeight = 15;
-                Dimension maxSize = new Dimension(maxWidth, maxHeight);
-                maxLabel.setSize(maxSize);
-                add(maxLabel);
+                    // min axis value label
+                    String minName = formatter.format(mins[i-1]);
+                    JLabel minLabel = new JLabel(minName);
 
-                // min axis value label
-                String minName = formatter.format(mins[i-1]);
-                JLabel minLabel = new JLabel(minName);
+                    // label position
+                    int minXPos = lineSpacing * i;
+                    minXPos -= (int)Math.floor(3*minName.length());
+                    int minYPos = panelHeight - 65;
+                    Point minPosition = new Point(minXPos, minYPos);
+                    minLabel.setLocation(minPosition);
 
-                // label position
-                int minXPos = lineSpacing * i;
-                minXPos -= (int)Math.floor(3*minName.length());
-                int minYPos = panelHeight - 65;
-                Point minPosition = new Point(minXPos, minYPos);
-                minLabel.setLocation(minPosition);
-
-                // label size
-                int minWidth = 50;
-                int minHeight = 15;
-                Dimension minSize = new Dimension(minWidth, minHeight);
-                minLabel.setSize(minSize);
-                add(minLabel);
-            }
-
-            // Draw a legend for the class colors
-            int legendX = 0;
-            int legendY = 10;
-            int legendWidth = 20;
-            // get longest class name
-            int longest = 0;
-            for (String className : classNums.keySet()) {
-                if (className.length() > longest) {
-                    longest = className.length();
+                    // label size
+                    int minWidth = 50;
+                    int minHeight = 15;
+                    Dimension minSize = new Dimension(minWidth, minHeight);
+                    minLabel.setSize(minSize);
+                    add(minLabel);
                 }
             }
-            legendWidth += longest * 20;
-
-            int legendHeight = 22 * classNums.size();
-            g.setColor(Color.WHITE);
-            g.fillRect(legendX, legendY, legendWidth, legendHeight);
-            g.setColor(Color.BLACK);
-            g.drawRect(legendX, legendY, legendWidth, legendHeight);
-            int legendMargin = 15;
-            int legendSpacing = 20;
-            int legendTextX = legendX + legendMargin;
-            int legendTextY = legendY + legendMargin;
-            for (String className : classNums.keySet()) {
-                g.setColor(colorMap.get(className));
-                g.fillRect(legendX + legendMargin, legendTextY - 10, 10, 10);
-                g.setColor(Color.BLACK);
-                g.drawString(className, legendTextX + 15, legendTextY);
-                legendTextY += legendSpacing;
+        }
+        
+        // Draw a legend for the class colors
+        int legendX = 0;
+        int legendY = 10;
+        int legendWidth = 20;
+        // get longest class name
+        int longest = 0;
+        for (String className : classNums.keySet()) {
+            if (className.length() > longest) {
+                longest = className.length();
             }
         }
+        legendWidth += longest * 20;
+
+        int legendHeight = 22 * classNums.size();
+        g.setColor(Color.WHITE);
+        g.fillRect(legendX, legendY, legendWidth, legendHeight);
+        g.setColor(Color.BLACK);
+        g.drawRect(legendX, legendY, legendWidth, legendHeight);
+        int legendMargin = 15;
+        int legendSpacing = 20;
+        int legendTextX = legendX + legendMargin;
+        int legendTextY = legendY + legendMargin;
+        for (String className : classNums.keySet()) {
+            g.setColor(colorMap.get(className));
+            g.fillRect(legendX + legendMargin, legendTextY - 10, 10, 10);
+            g.setColor(Color.BLACK);
+            g.drawString(className, legendTextX + 15, legendTextY);
+            legendTextY += legendSpacing;
+        }
+    }
+
+    public boolean isShowingAxisNames() {
+        return showAxisNames;
+    }
+
+    public void toggleAxisNames() {
+        showAxisNames = !showAxisNames;
+        // clear screen
+        removeAll();
+        repaint();
     }
 }

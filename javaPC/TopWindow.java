@@ -28,49 +28,47 @@ public class TopWindow extends JFrame {
     private PlotPanel pcPlot;
 
     protected TopWindow() {
-        // Set the title of the frame
+        // Initialize the window settings
         setTitle(TITLE);
-
         setResizable(false);
-
-        // Set the size of the frame
         getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
-
-        // Set the layout manager to FlowLayout
         setLayout(new BorderLayout());
-        
         getContentPane().setBackground(Color.WHITE);
-
-        // Exit the application when the frame is closed
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Add components
         UiRibbon ribbon = new UiRibbon(this);
+        JPanel bottomPanel = createBottomPanel(ribbon);
+        add(bottomPanel, BorderLayout.SOUTH);
 
-        JPanel bottomPanel = new JPanel(); // Create a separate panel for the uiPanel
-        bottomPanel.setBackground(Color.LIGHT_GRAY); // Adjust the color as needed
-        bottomPanel.setLayout(new GridBagLayout()); // Use GridBagLayout for the bottom panel
-
-        // Create a GridBagConstraints instance to control the layout of components
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0; // Set the grid x position to 0
-        gbc.gridy = 0; // Set the grid y position to 0
-        gbc.anchor = GridBagConstraints.CENTER; // Center-align the component
-        gbc.insets = new Insets(0, 0, 0, 0); // Add some spacing around the component
-
-        bottomPanel.add(ribbon, gbc); // Add the uiPanel using the GridBagConstraints
-
-        add(bottomPanel, BorderLayout.SOUTH); // Add the bottom panel to the SOUTH position
-
-        JLabel prompt = new JLabel("Please load a dataset with the 'Load CSV' toolbar button below.");
-        prompt.setFont(new Font("Arial", Font.PLAIN, 16));
-    
-        // Create an inner JPanel with FlowLayout and add the label
-        JPanel innerPanel = new JPanel();
-        innerPanel.add(prompt);
-        innerPanel.setBorder(new EmptyBorder(300, 0, 300, 0)); // Add empty border for centering
-        add(innerPanel, BorderLayout.CENTER);
+        JPanel prompt = createCenterPrompt();
+        add(prompt, BorderLayout.CENTER);
 
         init();
+    }
+
+    private JPanel createBottomPanel(UiRibbon ribbon) {
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(Color.LIGHT_GRAY);
+        bottomPanel.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(0, 0, 0, 0);
+
+        bottomPanel.add(ribbon, gbc);
+        return bottomPanel;
+    }
+
+    private JPanel createCenterPrompt() {
+        JLabel prompt = new JLabel("Please load a dataset with the 'Load CSV' toolbar button below.");
+        prompt.setFont(new Font("Arial", Font.PLAIN, 16));
+        JPanel innerPanel = new JPanel();
+        innerPanel.add(prompt);
+        innerPanel.setBorder(new EmptyBorder(300, 0, 300, 0));
+        return innerPanel;
     }
 
     protected void init() {
@@ -82,30 +80,45 @@ public class TopWindow extends JFrame {
         if (pcPlot != null) {
             remove(pcPlot);
         }
-    
-        // Count cases per class
-        HashMap<String, Integer> classCounts = new HashMap<>();
-        for (int i = 1; i < data.length; i++) {  // Assuming the first row is headers
-            String className = data[i][data[i].length - 1];  // Assuming the class column is the last
-            classCounts.put(className, classCounts.getOrDefault(className, 0) + 1);
-        }
-    
-        // Format the cases per class information for the title
+
+        updateTitleWithClassCounts(dataset, data);
+        pcPlot = new PlotPanel(data);
+        add(pcPlot, BorderLayout.CENTER);
+        init();
+    }
+
+    private void updateTitleWithClassCounts(String dataset, String[][] data) {
+        HashMap<String, Integer> classCounts = countClasses(data);
         StringBuilder casesPerClass = new StringBuilder();
         for (String key : classCounts.keySet()) {
             casesPerClass.append(key + ": " + classCounts.get(key) + ", ");
         }
-    
-        // Remove the last comma and space if there is any content
+
         if (casesPerClass.length() > 0) {
             casesPerClass.setLength(casesPerClass.length() - 2);
         }
-    
-        // Update the title with dataset name, total cases, and cases per class
+
         setTitle(TITLE + " - " + dataset + " - " + (data.length - 1) + " Cases - [" + casesPerClass.toString() + "]");
-        
-        pcPlot = new PlotPanel(data);
-        add(pcPlot, BorderLayout.CENTER);
-        init();
-    }    
+    }
+
+    private HashMap<String, Integer> countClasses(String[][] data) {
+        HashMap<String, Integer> classCounts = new HashMap<>();
+        for (int i = 1; i < data.length; i++) {
+            String className = data[i][data[i].length - 1];
+            classCounts.put(className, classCounts.getOrDefault(className, 0) + 1);
+        }
+        return classCounts;
+    }
+
+    public PlotPanel getPlotPanel() {
+        return pcPlot;
+    }
+
+    public void toggleAxisNames() {
+        if (pcPlot != null) {
+            pcPlot.setShowAxisNames(!pcPlot.isShowingAxisNames());
+            pcPlot.repaint();
+        }
+    }
 }
+    

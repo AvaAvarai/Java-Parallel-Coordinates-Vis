@@ -2,7 +2,6 @@ package javaPC;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
-
 import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,7 +17,7 @@ import java.io.File;
  */
 public class UiRibbon extends JPanel {
 
-    protected static final int WIDTH = 250;
+    protected static final int WIDTH = 400;
     protected static final int HEIGHT = 30;
 
     private File loadedCSV;
@@ -34,36 +33,48 @@ public class UiRibbon extends JPanel {
         setBackground(Color.LIGHT_GRAY);
 
         // Create the buttons
-        JButton button1 = new JButton("Load CSV");
-        JButton button2 = new JButton("Render Plot");
+        JButton buttonLoadCSV = new JButton("Load CSV");
+        JButton buttonRenderPlot = new JButton("Render Plot");
+        JButton buttonToggleAxisNames = new JButton("Toggle Labels");
 
         // Set the preferred width of the buttons
-        button1.setPreferredSize(new Dimension(100, button1.getPreferredSize().height));
-        button2.setPreferredSize(new Dimension(100, button2.getPreferredSize().height));
+        buttonLoadCSV.setPreferredSize(new Dimension(120, buttonLoadCSV.getPreferredSize().height));
+        buttonRenderPlot.setPreferredSize(new Dimension(120, buttonRenderPlot.getPreferredSize().height));
+        buttonToggleAxisNames.setPreferredSize(new Dimension(120, buttonToggleAxisNames.getPreferredSize().height));
 
         // Add action listener to the "Load CSV" button
-        button1.addActionListener(new ActionListener() {
+        buttonLoadCSV.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 loadedCSV = CsvParser.loadCSVFile();
                 if (loadedCSV == null) {
                     // Show a basic information message dialog
                     JOptionPane.showMessageDialog(null, "The file selected is not a CSV, please try again.");
-                    button2.setEnabled(false);
+                    buttonRenderPlot.setEnabled(false);
                 } else {
-                    button2.setEnabled(true);
+                    buttonRenderPlot.setEnabled(true);
                 }
-        }});
+            }
+        });
 
-        button2.setEnabled(false);
-
-        button2.addActionListener(new ActionListener() {
+        // Add action listener to the "Render Plot" button
+        buttonRenderPlot.setEnabled(false);
+        buttonRenderPlot.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 String[][] data = CsvParser.parseCSVFile(loadedCSV);
                 parent.render(loadedCSV.getName(), data);
+            }
+        });
 
-            }});
+        // Add action listener to the "Toggle Axis Names" button
+        buttonToggleAxisNames.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                // Assuming parent.getPlotPanel() method exists and it toggles axis name visibility
+                parent.getPlotPanel().toggleAxisNames();
+            }
+        });
 
         // Add the buttons to the panel with center alignment and left anchor
         GridBagConstraints constraints = new GridBagConstraints();
@@ -72,12 +83,13 @@ public class UiRibbon extends JPanel {
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(0, 10, 0, 0);
 
-        // Add the buttons to the panel
-        add(button1, constraints);
+        add(buttonLoadCSV, constraints);
 
         constraints.gridx = 1;
+        add(buttonRenderPlot, constraints);
 
-        add(button2, constraints);
+        constraints.gridx = 2;
+        add(buttonToggleAxisNames, constraints);
 
         setVisible(true);
     }
