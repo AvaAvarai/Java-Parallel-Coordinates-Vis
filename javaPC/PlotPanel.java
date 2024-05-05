@@ -212,6 +212,7 @@ public class PlotPanel extends JPanel {
                 int height = 15;
                 Dimension size = new Dimension(width, height);
                 label.setSize(size);
+                label.setForeground(axisColor);
                 add(label);
 
                 if (i < axisCount) {
@@ -234,6 +235,7 @@ public class PlotPanel extends JPanel {
                     int maxHeight = 15;
                     Dimension maxSize = new Dimension(maxWidth, maxHeight);
                     maxLabel.setSize(maxSize);
+                    maxLabel.setForeground(axisColor);
                     add(maxLabel);
 
                     // min axis value label
@@ -252,6 +254,7 @@ public class PlotPanel extends JPanel {
                     int minHeight = 15;
                     Dimension minSize = new Dimension(minWidth, minHeight);
                     minLabel.setSize(minSize);
+                    minLabel.setForeground(axisColor);
                     add(minLabel);
                 }
             }
