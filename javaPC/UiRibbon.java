@@ -29,7 +29,6 @@ public class UiRibbon extends JPanel {
 
         // Create the buttons
         JButton buttonLoadCSV = new JButton("Load CSV");
-        JButton buttonRenderPlot = new JButton("Render Plot");
         JButton buttonToggleAxisNames = new JButton("Toggle Labels");
         JButton buttonChangeBackground = new JButton("Change Background");
         JButton buttonChangeAxisColor = new JButton("Change Axis Color");
@@ -66,7 +65,6 @@ public class UiRibbon extends JPanel {
 
         // Set the preferred width of the buttons
         buttonLoadCSV.setPreferredSize(new Dimension(120, buttonLoadCSV.getPreferredSize().height));
-        buttonRenderPlot.setPreferredSize(new Dimension(120, buttonRenderPlot.getPreferredSize().height));
         buttonToggleAxisNames.setPreferredSize(new Dimension(120, buttonToggleAxisNames.getPreferredSize().height));
         buttonChangeBackground.setPreferredSize(new Dimension(160, buttonChangeBackground.getPreferredSize().height));
 
@@ -84,7 +82,6 @@ public class UiRibbon extends JPanel {
         });
 
         // Initially disable buttons that should only be active after a CSV is loaded
-        buttonRenderPlot.setEnabled(false);
         buttonToggleAxisNames.setEnabled(false);
         buttonChangeBackground.setEnabled(false);
         buttonChangeAxisColor.setEnabled(false);
@@ -96,12 +93,10 @@ public class UiRibbon extends JPanel {
                 loadedCSV = CsvParser.loadCSVFile();
                 if (loadedCSV == null) {
                     JOptionPane.showMessageDialog(null, "The file selected is not a CSV, please try again.");
-                    buttonRenderPlot.setEnabled(false);
                     buttonToggleAxisNames.setEnabled(false);
                     buttonChangeBackground.setEnabled(false);
                 } else {
-                    String[][] data = CsvParser.parseCSVFile(loadedCSV); // Declare the 'data' variable
-                    buttonRenderPlot.setEnabled(true);
+                    String[][] data = CsvParser.parseCSVFile(loadedCSV);
                     parent.render(loadedCSV.getName(), data);
                     buttonToggleAxisNames.setEnabled(true);
                     buttonChangeBackground.setEnabled(true);
@@ -112,18 +107,7 @@ public class UiRibbon extends JPanel {
 
         // Set the preferred width of the buttons
         buttonLoadCSV.setPreferredSize(new Dimension(120, buttonLoadCSV.getPreferredSize().height));
-        buttonRenderPlot.setPreferredSize(new Dimension(120, buttonRenderPlot.getPreferredSize().height));
         buttonToggleAxisNames.setPreferredSize(new Dimension(120, buttonToggleAxisNames.getPreferredSize().height));
-
-        // Add action listener to the "Render Plot" button
-        buttonRenderPlot.setEnabled(false);
-        buttonRenderPlot.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                String[][] data = CsvParser.parseCSVFile(loadedCSV);
-                parent.render(loadedCSV.getName(), data);
-            }
-        });
 
         // Add action listener to the "Toggle Axis Names" button
         buttonToggleAxisNames.addActionListener(new ActionListener() {
@@ -142,8 +126,6 @@ public class UiRibbon extends JPanel {
         constraints.insets = new Insets(0, 10, 0, 0);
         
         add(buttonLoadCSV, constraints);
-        constraints.gridx++;
-        add(buttonRenderPlot, constraints);
         constraints.gridx++;
         add(buttonToggleAxisNames, constraints);
         constraints.gridx++;

@@ -15,10 +15,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Plot renderer class
  */
+
 public class PlotPanel extends JPanel {
 
     private static final int WIDTH = 1600;
@@ -39,6 +41,28 @@ public class PlotPanel extends JPanel {
         }
         removeAll();
         repaint();
+    }
+
+    public HashMap<String, Color> generateUniqueColors(List<String> classNames, Color axisColor, Color backgroundColor) {
+        colorMap = new HashMap<>();
+        float[] axisHsv = Color.RGBtoHSB(axisColor.getRed(), axisColor.getGreen(), axisColor.getBlue(), null);
+        float[] backgroundHsv = Color.RGBtoHSB(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue(), null);
+
+        // Calculate the hue step to distribute colors evenly across the hue circle
+        float hueStep = 1.0f / classNames.size();
+
+        // Generate unique colors for each class
+        for (int i = 0; i < classNames.size(); i++) {
+            float hue = (hueStep * i) % 1.0f;
+            // Avoid hues too close to the background or axis colors by checking the hue distance
+            if (Math.abs(hue - axisHsv[0]) < 0.05 || Math.abs(hue - backgroundHsv[0]) < 0.05) {
+                hue = (hue + hueStep / 2) % 1.0f;  // Adjust hue to avoid similarity
+            }
+            // Create colors with the same saturation and brightness levels
+            Color classColor = new Color(Color.HSBtoRGB(hue, 0.7f, 0.9f));  // Using a fixed saturation and brightness
+            colorMap.put(classNames.get(i), classColor);
+        }
+        return colorMap;
     }
 
     public void setAxisColor(Color color) {
@@ -81,19 +105,7 @@ public class PlotPanel extends JPanel {
             }
         }       
 
-        colorMap = new HashMap<>();
-        for (String name : classNames) {
-             // Generate random RGB values
-            int red = (int) (Math.random() * 255);
-            int green = (int) (Math.random() * 255);
-            int blue = (int) (Math.random() * 255);
-
-            // Create a random color
-            Color randomColor = new Color(red, green, blue);
-
-            // Set the color of the graphics object
-            colorMap.put(name, randomColor);
-        }
+        colorMap = generateUniqueColors(classNames, axisColor, backgroundColor);
         
         setBackground(backgroundColor);
 
