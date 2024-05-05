@@ -247,9 +247,10 @@ public class PlotPanel extends JPanel {
                 longest = className.length();
             }
         }
-        legendWidth += longest * 8 + 15;
+        // calculate legendwidth
+        legendWidth += longest * 6 + 15;
 
-        int legendHeight = 22 * classNums.size();
+        int legendHeight = 20 * classNums.size();
         g.setColor(Color.WHITE);
         g.fillRect(legendX, legendY, legendWidth, legendHeight);
         g.setColor(Color.BLACK);
