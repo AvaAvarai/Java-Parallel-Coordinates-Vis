@@ -48,9 +48,9 @@ The Makefile in this project simplifies the process of compiling Java files and 
 
 To plot a dataset make sure the class/id column is the last column.  
 
-- Start program with Java by running `JavaPC/Main.java`
-- Click 'Load CSV', pick your file
-- Click 'Render Plot'
+- Start program with Java by running `JavaPC/Main.java` or by running the compiled JAR file.
+- Click 'Load CSV' to open the file picker and select a dataset to visualize.
+- Click 'Render Plot', rerendering the plot will generate a new color scheme if preferred.
 
 ## Datasets
 

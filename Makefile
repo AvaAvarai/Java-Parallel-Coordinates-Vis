@@ -22,7 +22,7 @@ all: $(JAR_NAME)
 
 # Rule to create jar file
 $(JAR_NAME): $(CLASSES)
-	$(JAR) cvfm $(JAR_NAME) $(MANIFEST) -C $(OUT_DIR) .
+	$(JAR) cvfm $(JAR_NAME) $(MANIFEST) -C . $(SRC_DIR)
 
 # Rule to compile java files
 $(SRC_DIR)/%.class: $(SRC_DIR)/%.java
