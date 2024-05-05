@@ -18,6 +18,12 @@ javac javaPC/*.java
 java javaPC.Driver
 ```
 
+## How to Compile
+
+```bash
+jar cvfm Parallel-Coordinates-Vis.jar manifest.txt javaPC/*.class
+```
+
 ## How to Use
 
 To plot a dataset make sure the class/id column is the last column.  
