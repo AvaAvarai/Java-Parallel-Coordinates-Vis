@@ -28,6 +28,7 @@ public class PlotPanel extends JPanel {
     private String[][] data;
     private boolean showAxisNames = true;
     private static Color backgroundColor = Color.WHITE;
+    private static Color axisColor = Color.BLACK;
 
     public void setAlpha(float alpha) {
         // set all class color alphas
@@ -39,12 +40,18 @@ public class PlotPanel extends JPanel {
         repaint();
     }
 
+    public void setAxisColor(Color color) {
+        axisColor = color;
+        removeAll();
+        repaint();
+    }
+
     public void setBackgroundColor(Color color) {
         setBackground(color);
         backgroundColor = color;
         removeAll();
-        repaint(); // Repaint the panel with the new background color
-    }    
+        repaint();
+    }
 
     public void setShowAxisNames(boolean showAxisNames) {
         this.showAxisNames = showAxisNames;
@@ -130,6 +137,7 @@ public class PlotPanel extends JPanel {
         }
 
         // draw axis lines
+        g.setColor(axisColor);
         for (int i = 1; i <= axisCount; i++) {
             int x = lineSpacing * i;
             g.drawLine(x-1, 35, x-1, panelHeight - margin);

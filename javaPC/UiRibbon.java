@@ -31,6 +31,7 @@ public class UiRibbon extends JPanel {
         JButton buttonRenderPlot = new JButton("Render Plot");
         JButton buttonToggleAxisNames = new JButton("Toggle Labels");
         JButton buttonChangeBackground = new JButton("Change Background");
+        JButton buttonChangeAxisColor = new JButton("Change Axis Color");
         JSlider transparencySlider = new JSlider(0, 100, 100);
 
         // Configure the slider for transparency
@@ -41,6 +42,18 @@ public class UiRibbon extends JPanel {
         transparencySlider.setPaintLabels(true);
         JLabel sliderLabel = new JLabel("Transparency");
         sliderLabel.setLabelFor(transparencySlider);
+
+        // Add action listener for changing axis color
+        buttonChangeAxisColor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ThemedColorPicker colorPicker = new ThemedColorPicker(parent);
+                Color newColor = colorPicker.pickColor();
+                if (newColor != null) {
+                    parent.getPlotPanel().setAxisColor(newColor);  // Assumes setAxisColor method in PlotPanel
+                }
+            }
+        });
 
         // Listener for the transparency slider
         transparencySlider.addChangeListener(e -> {
@@ -73,6 +86,7 @@ public class UiRibbon extends JPanel {
         buttonRenderPlot.setEnabled(false);
         buttonToggleAxisNames.setEnabled(false);
         buttonChangeBackground.setEnabled(false);
+        buttonChangeAxisColor.setEnabled(false);
 
         // Add action listener to the "Load CSV" button
         buttonLoadCSV.addActionListener(new ActionListener() {
@@ -90,6 +104,7 @@ public class UiRibbon extends JPanel {
                     parent.render(loadedCSV.getName(), data);
                     buttonToggleAxisNames.setEnabled(true);
                     buttonChangeBackground.setEnabled(true);
+                    buttonChangeAxisColor.setEnabled(true);
                 }
             }
         });
@@ -132,6 +147,8 @@ public class UiRibbon extends JPanel {
         add(buttonToggleAxisNames, constraints);
         constraints.gridx++;
         add(buttonChangeBackground, constraints);
+        constraints.gridx++;
+        add(buttonChangeAxisColor, constraints);
         constraints.gridx++;
         add(sliderLabel, constraints);
         constraints.gridx++;
