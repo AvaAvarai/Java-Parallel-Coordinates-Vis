@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashSet;
 
@@ -30,7 +32,7 @@ public class UiRibbon extends JPanel {
         JButton buttonToggleAxisNames = new JButton("Toggle Labels");
         JButton buttonChangeBackground = new JButton("Change Background");
         JButton buttonChangeAxisColor = new JButton("Change Axis Color");
-        JSlider transparencySlider = createTransparencySlider();
+        JSlider transparencySlider = createTransparencySlider(parent);
         JLabel sliderLabel = new JLabel("Transparency");
         sliderLabel.setLabelFor(transparencySlider);
         classSelector = new JComboBox<>();  // Initialize dropdown
@@ -70,6 +72,15 @@ public class UiRibbon extends JPanel {
             }
         });
 
+        // Add action listener to the "Toggle Axis Names" button
+        buttonToggleAxisNames.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                // Assuming parent.getPlotPanel() method exists and it toggles axis name visibility
+                parent.getPlotPanel().toggleAxisNames();
+            }
+        });
+
         // Handle class color change
         colorButton.addActionListener(e -> {
             Color newColor = JColorChooser.showDialog(null, "Choose a color for " + classSelector.getSelectedItem(), Color.white);
@@ -78,12 +89,36 @@ public class UiRibbon extends JPanel {
             }
         });
 
+        // Add action listener to the "Change Background" button
+        buttonChangeBackground.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                ThemedColorPicker colorPicker = new ThemedColorPicker(parent);
+                Color newColor = colorPicker.pickColor();
+                if (newColor != null) {
+                    parent.getPlotPanel().setBackgroundColor(newColor);
+                }
+            }
+        });
+
+        // Add action listener to the "Change Axis Color" button
+        buttonChangeAxisColor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                ThemedColorPicker colorPicker = new ThemedColorPicker(parent);
+                Color newColor = colorPicker.pickColor();
+                if (newColor != null) {
+                    parent.getPlotPanel().setAxisColor(newColor);
+                }
+            }
+        });
+
         // Add class selector and color button
         addComponent(constraints, classSelector);
         addComponent(constraints, colorButton);
     }
 
-    private JSlider createTransparencySlider() {
+    private JSlider createTransparencySlider(TopWindow parent) {  // Accept TopWindow as an argument
         JSlider slider = new JSlider(0, 100, 100);
         slider.setPreferredSize(new Dimension(150, 50));
         slider.setMajorTickSpacing(25);
@@ -92,13 +127,13 @@ public class UiRibbon extends JPanel {
         slider.setPaintLabels(true);
         slider.addChangeListener(e -> {
             if (!slider.getValueIsAdjusting()) {
-                float alpha = slider.getValue() / 100f;
-                ((TopWindow) getParent()).getPlotPanel().setAlpha(alpha);
+                float transparency = (float) slider.getValue() / 100;
+                parent.getPlotPanel().setAlpha(transparency); // Use the passed parent reference here
             }
         });
         
         return slider;
-    }
+    }    
 
     private void addComponent(GridBagConstraints constraints, Component component) {
         add(component, constraints);
