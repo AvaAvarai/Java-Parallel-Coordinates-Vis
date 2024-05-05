@@ -71,6 +71,16 @@ public class PlotPanel extends JPanel {
         repaint();
     }
 
+    public void setClassColor(String className, Color color) {
+        if (colorMap.containsKey(className)) {
+            colorMap.put(className, color);
+        } else {
+            JOptionPane.showMessageDialog(this, "Class name not found: " + className);
+        }
+        removeAll();
+        repaint();
+    }    
+
     public void setBackgroundColor(Color color) {
         setBackground(color);
         backgroundColor = color;
