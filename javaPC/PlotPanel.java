@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -65,6 +66,8 @@ public class PlotPanel extends JPanel {
         // Set the preferred size of the panel
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
+        setBorder(new BevelBorder(BevelBorder.LOWERED, Color.BLACK, Color.BLACK));
+        
         ArrayList<String> classNames = new ArrayList<>();
         for (int j = 1; j < data.length; j++) {
             for (int i = 0; i < data[0].length; i++) {

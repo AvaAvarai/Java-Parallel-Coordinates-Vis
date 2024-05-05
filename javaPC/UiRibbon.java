@@ -1,6 +1,8 @@
 package javaPC;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,8 +24,7 @@ public class UiRibbon extends JPanel {
 
         // Set the layout manager to GridBagLayout
         setLayout(new GridBagLayout());
-
-        // Set the background color to a metallic color
+        setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
         setBackground(Color.LIGHT_GRAY);
 
         // Create the buttons
