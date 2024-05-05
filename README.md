@@ -79,6 +79,10 @@ To plot a dataset make sure the class/id column is the last column.
 
 ![Iris dataset render](screenshots/iris_render.png)
 
+### Heart disease dataset render
+
+![Heart disease dataset render](screenshots/heart.png)
+
 ### Wisconsin breast cancer diagnosis render  
 
 ![Wisconsin breast cancer diagnosis render](screenshots/wbc_render.png)
