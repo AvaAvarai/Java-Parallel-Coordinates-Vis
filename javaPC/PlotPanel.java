@@ -230,7 +230,7 @@ public class PlotPanel extends JPanel {
         
         // Draw a legend for the class colors
         int legendX = 0;
-        int legendY = 10;
+        int legendY = 50;
         int legendWidth = 20;
         // get longest class name
         int longest = 0;
@@ -239,17 +239,17 @@ public class PlotPanel extends JPanel {
                 longest = className.length();
             }
         }
-        legendWidth += longest * 20;
+        legendWidth += longest * 8 + 15;
 
         int legendHeight = 22 * classNums.size();
         g.setColor(Color.WHITE);
         g.fillRect(legendX, legendY, legendWidth, legendHeight);
         g.setColor(Color.BLACK);
         g.drawRect(legendX, legendY, legendWidth, legendHeight);
-        int legendMargin = 15;
+        int legendMargin = 5;
         int legendSpacing = 20;
         int legendTextX = legendX + legendMargin;
-        int legendTextY = legendY + legendMargin;
+        int legendTextY = legendY + legendMargin + 10;
         for (String className : classNums.keySet()) {
             g.setColor(colorMap.get(className));
             g.fillRect(legendX + legendMargin, legendTextY - 10, 10, 10);
