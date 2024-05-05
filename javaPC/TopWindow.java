@@ -18,7 +18,7 @@ import java.awt.BorderLayout;
  */
 public class TopWindow extends JFrame {
 
-    private static final String TITLE = "JavaPC v0.0 - Parallel Coordinates";
+    private static final String TITLE = "Java Parallel Coordinates Visualization Tool";
 
     private static final int WIDTH = 1600;
     private static final int HEIGHT = 800;
@@ -59,7 +59,7 @@ public class TopWindow extends JFrame {
 
         add(bottomPanel, BorderLayout.SOUTH); // Add the bottom panel to the SOUTH position
 
-        JLabel prompt = new JLabel("Please load a dataset with 'Load CSV' on UI ribbon below.");
+        JLabel prompt = new JLabel("Please load a dataset with the 'Load CSV' toolbar button below.");
         prompt.setFont(new Font("Arial", Font.PLAIN, 16));
     
         // Create an inner JPanel with FlowLayout and add the label
@@ -80,7 +80,7 @@ public class TopWindow extends JFrame {
         if (pcPlot != null) {
             remove(pcPlot);
         }
-        setTitle(TITLE + " - " + dataset + " - " + (data.length - 1) + " Samples");
+        setTitle(TITLE + " - " + dataset + " - " + (data.length - 1) + " Cases");
         pcPlot = new PlotPanel(data);
         add(pcPlot, BorderLayout.CENTER);
         init();

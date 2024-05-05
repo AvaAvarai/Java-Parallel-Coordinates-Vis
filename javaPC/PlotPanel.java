@@ -202,6 +202,36 @@ public class PlotPanel extends JPanel {
                 minLabel.setSize(minSize);
                 add(minLabel);
             }
+
+            // Draw a legend for the class colors
+            int legendX = 0;
+            int legendY = 10;
+            int legendWidth = 20;
+            // get longest class name
+            int longest = 0;
+            for (String className : classNums.keySet()) {
+                if (className.length() > longest) {
+                    longest = className.length();
+                }
+            }
+            legendWidth += longest * 20;
+
+            int legendHeight = 22 * classNums.size();
+            g.setColor(Color.WHITE);
+            g.fillRect(legendX, legendY, legendWidth, legendHeight);
+            g.setColor(Color.BLACK);
+            g.drawRect(legendX, legendY, legendWidth, legendHeight);
+            int legendMargin = 15;
+            int legendSpacing = 20;
+            int legendTextX = legendX + legendMargin;
+            int legendTextY = legendY + legendMargin;
+            for (String className : classNums.keySet()) {
+                g.setColor(colorMap.get(className));
+                g.fillRect(legendX + legendMargin, legendTextY - 10, 10, 10);
+                g.setColor(Color.BLACK);
+                g.drawString(className, legendTextX + 15, legendTextY);
+                legendTextY += legendSpacing;
+            }
         }
     }
 }
