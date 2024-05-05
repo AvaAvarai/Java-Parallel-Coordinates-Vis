@@ -193,7 +193,7 @@ public class PlotPanel extends JPanel {
                         if (showAxisNames) {
                             label.setLocation(position);
                             // Set the size of the label
-                            int width = 150;
+                            int width = 100;
                             int height = 15;
                             Dimension size = new Dimension(width, height);
                             label.setSize(size);
