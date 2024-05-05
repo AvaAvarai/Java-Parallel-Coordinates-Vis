@@ -1,28 +1,48 @@
 # Java Parallel Coordinates Visualization Tool
 
-Java Parallel Coordinates Visualization Tool, visualizing multidimensional/multivariate CSV data with Java Swing. 
+Java Parallel Coordinates Visualization Tool, visualizing multidimensional/multivariate CSV data with Java Swing.
 
 ## Prerequisites
 
 Make sure Java is installed on your system to compile and run this application.
 
-## How to Compile and Run
+## How to Compile
 
 To get started, open a command line interface (CLI) and navigate to your project directory. Run the following commands:
 
 ```bash
 # Compile all Java files in the javaPC directory
 javac javaPC/*.java
+```
 
+## How to Run
+
+```bash
 # Run the main Driver class
 java javaPC.Driver
 ```
 
-## How to Compile
+## How to Build the Jar
 
 ```bash
 jar cvfm Parallel-Coordinates-Vis.jar manifest.txt javaPC/*.class
 ```
+
+## Makefile Script
+
+The Makefile in this project simplifies the process of compiling Java files and building the JAR file. Below are the provided recipes:
+
+- **Compile Java Files and Build the JAR**: This single command compiles all `.java` files within the `javaPC` directory and packages the compiled `.class` files into a JAR file, including the specified manifest.
+
+  ```bash
+  make all
+  ```
+
+- **Clean**: Removes all compiled .class files and the generated JAR file to clean the project directory.
+
+  ```bash
+  make clean
+  ```
 
 ## How to Use
 
