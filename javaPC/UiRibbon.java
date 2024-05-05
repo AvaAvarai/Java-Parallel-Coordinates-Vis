@@ -1,14 +1,7 @@
 package javaPC;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JOptionPane;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -37,11 +30,30 @@ public class UiRibbon extends JPanel {
         JButton buttonLoadCSV = new JButton("Load CSV");
         JButton buttonRenderPlot = new JButton("Render Plot");
         JButton buttonToggleAxisNames = new JButton("Toggle Labels");
+        JButton buttonChangeBackground = new JButton("Change Background");
 
         // Set the preferred width of the buttons
         buttonLoadCSV.setPreferredSize(new Dimension(120, buttonLoadCSV.getPreferredSize().height));
         buttonRenderPlot.setPreferredSize(new Dimension(120, buttonRenderPlot.getPreferredSize().height));
         buttonToggleAxisNames.setPreferredSize(new Dimension(120, buttonToggleAxisNames.getPreferredSize().height));
+        buttonChangeBackground.setPreferredSize(new Dimension(160, buttonChangeBackground.getPreferredSize().height));
+
+        buttonChangeBackground.setPreferredSize(new Dimension(160, buttonChangeBackground.getPreferredSize().height));
+        buttonChangeBackground.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                // Open a color chooser dialog and get the selected color
+                Color newColor = JColorChooser.showDialog(null, "Choose Background Color", parent.getPlotPanel().getBackground());
+                if (newColor != null) {
+                    parent.getPlotPanel().setBackgroundColor(newColor); // Assuming parent.getPlotPanel() method exists
+                }
+            }
+        });
+
+        // Initially disable buttons that should only be active after a CSV is loaded
+        buttonRenderPlot.setEnabled(false);
+        buttonToggleAxisNames.setEnabled(false);
+        buttonChangeBackground.setEnabled(false);
 
         // Add action listener to the "Load CSV" button
         buttonLoadCSV.addActionListener(new ActionListener() {
@@ -49,14 +61,24 @@ public class UiRibbon extends JPanel {
             public void actionPerformed(ActionEvent event) {
                 loadedCSV = CsvParser.loadCSVFile();
                 if (loadedCSV == null) {
-                    // Show a basic information message dialog
                     JOptionPane.showMessageDialog(null, "The file selected is not a CSV, please try again.");
                     buttonRenderPlot.setEnabled(false);
+                    buttonToggleAxisNames.setEnabled(false);
+                    buttonChangeBackground.setEnabled(false);
                 } else {
+                    String[][] data = CsvParser.parseCSVFile(loadedCSV); // Declare the 'data' variable
                     buttonRenderPlot.setEnabled(true);
+                    parent.render(loadedCSV.getName(), data);
+                    buttonToggleAxisNames.setEnabled(true);
+                    buttonChangeBackground.setEnabled(true);
                 }
             }
         });
+
+        // Set the preferred width of the buttons
+        buttonLoadCSV.setPreferredSize(new Dimension(120, buttonLoadCSV.getPreferredSize().height));
+        buttonRenderPlot.setPreferredSize(new Dimension(120, buttonRenderPlot.getPreferredSize().height));
+        buttonToggleAxisNames.setPreferredSize(new Dimension(120, buttonToggleAxisNames.getPreferredSize().height));
 
         // Add action listener to the "Render Plot" button
         buttonRenderPlot.setEnabled(false);
@@ -83,19 +105,6 @@ public class UiRibbon extends JPanel {
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(0, 10, 0, 0);
-
-        JButton buttonChangeBackground = new JButton("Change Background");
-        buttonChangeBackground.setPreferredSize(new Dimension(160, buttonChangeBackground.getPreferredSize().height));
-        buttonChangeBackground.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                // Open a color chooser dialog and get the selected color
-                Color newColor = JColorChooser.showDialog(null, "Choose Background Color", parent.getPlotPanel().getBackground());
-                if (newColor != null) {
-                    parent.getPlotPanel().setBackgroundColor(newColor); // Assuming parent.getPlotPanel() method exists
-                }
-            }
-        });
 
         add(buttonLoadCSV, constraints);
 
