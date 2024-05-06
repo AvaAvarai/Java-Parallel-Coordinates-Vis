@@ -30,8 +30,9 @@ public class UiRibbon extends JPanel {
         // Create and configure UI components
         JButton buttonLoadCSV = new JButton("Load CSV");
         JButton buttonToggleAxisNames = new JButton("Toggle Labels");
-        JButton buttonChangeBackground = new JButton("Change Background");
-        JButton buttonChangeAxisColor = new JButton("Change Axis Color");
+        JButton buttonChangeBackground = new JButton("Background Color");
+        JButton buttonChangeAxisColor = new JButton("Axis Color");
+        JButton buttonScaleVertices = new JButton("Histogram");
         JSlider transparencySlider = createTransparencySlider(parent);
         JLabel sliderLabel = new JLabel("Transparency");
         sliderLabel.setLabelFor(transparencySlider);
@@ -44,6 +45,7 @@ public class UiRibbon extends JPanel {
         buttonChangeAxisColor.setEnabled(false);
         classSelector.setEnabled(false);
         colorButton.setEnabled(false);
+        buttonScaleVertices.setEnabled(false);
 
         // Add components to the panel
         GridBagConstraints constraints = new GridBagConstraints();
@@ -55,6 +57,7 @@ public class UiRibbon extends JPanel {
         addComponent(constraints, buttonToggleAxisNames);
         addComponent(constraints, buttonChangeBackground);
         addComponent(constraints, buttonChangeAxisColor);
+        addComponent(constraints, buttonScaleVertices);
         addComponent(constraints, sliderLabel);
         addComponent(constraints, transparencySlider);
 
@@ -63,12 +66,19 @@ public class UiRibbon extends JPanel {
             loadedCSV = CsvParser.loadCSVFile();
             if (loadedCSV == null) {
                 JOptionPane.showMessageDialog(null, "The file selected is not a CSV, please try again.");
-                disableComponents(buttonToggleAxisNames, buttonChangeBackground, buttonChangeAxisColor, classSelector, colorButton);
+                disableComponents(buttonToggleAxisNames, buttonChangeBackground, buttonChangeAxisColor, classSelector, colorButton, buttonScaleVertices);
             } else {
                 String[][] data = CsvParser.parseCSVFile(loadedCSV);
                 parent.render(loadedCSV.getName(), data);
                 updateClassSelector(data);  // Populate dropdown with class names
-                enableComponents(buttonToggleAxisNames, buttonChangeBackground, buttonChangeAxisColor, classSelector, colorButton);
+                enableComponents(buttonToggleAxisNames, buttonChangeBackground, buttonChangeAxisColor, classSelector, colorButton, buttonScaleVertices);
+            }
+        });
+
+        buttonScaleVertices.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                parent.getPlotPanel().toggleScaleVertices();
             }
         });
 

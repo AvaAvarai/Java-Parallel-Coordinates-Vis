@@ -56,14 +56,15 @@ To plot a dataset make sure the class/id column is the last column.
 - Click 'Load CSV' to open the file picker and select a dataset to visualize.
 - Click 'Render Plot', rerendering the plot will generate a new color scheme if preferred.
 - Click 'Toggle Labels', to toggle on/off the visibility of class, attribute, and ranges.
+- Click 'Histogram', to toggle on/off histogram correlated density sized vertices.
 
 ## Datasets
 
 - `breast-cancer-wisconsin.csv` - UCI's Wisconsin breast cancer dataset with 30 features. Classes: Malignant, Benign
 - `breast-cancer-wisconsin-9f.csv` - UCI's Wisconsin breast cancer dataset with 9 features. Classes: Malignant, Benign
-- `diabetes.csv` - UCI's diabetes dataset. Classes: 0, 1  
+- `diabetes.csv` - UCI's diabetes dataset. Classes: Negative, Positive
 - `fisher_iris_SVe.csv` - Subset of Fisher's Iris dataset for Versicolor and Setosa. Classes: Versicolor, Setosa
-- `heart.csv` - UCI's heart disease dataset. Classes: 0, 1  
+- `heart.csv` - UCI's heart disease dataset. Classes: Absence, Presence
 - `ionosphere.csv` - Dataset of radar data. Classes: Good, Bad
 - `iris.csv` - Fisher's Iris flower classification dataset. Classes: Virginica, Versicolor, Setosa
 - `iris_S_vs_VW.csv` - Subset of Fisher's Iris dataset for Setosa vs. others. Classes: Setosa, Other
@@ -73,7 +74,6 @@ To plot a dataset make sure the class/id column is the last column.
 - `iris_V_vs_V.csv` - Subset of Fisher's Iris dataset, comparing Virginica against others. Classes: Virginica, Other
 - `mnist_letters.csv` - MNIST's capital letter dimensions of handwriting dataset. Classes: Capital letters A - Z  
 - `sin_cos.csv` - Dataset containing sin and cos values for various angles. Classes: Sin, Cos
-- `wbc_diag.csv` - Wisconsin breast cancer diagnosis dataset (basic version). Classes: Malignant, Benign
 - `wheat_seeds.csv` - UCI's wheat seeds dataset. Classes: 0, 1, 2  
 - `wine.csv` - Dataset with chemical analysis of wines. Classes: Class_0, Class_1, Class_2
 

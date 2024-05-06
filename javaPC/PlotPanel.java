@@ -32,6 +32,15 @@ public class PlotPanel extends JPanel {
     private boolean showAxisNames = true;
     private static Color backgroundColor = Color.GRAY;
     private static Color axisColor = Color.BLACK;
+    private static Boolean scaleVertices = false;
+
+    HashMap<Point, Integer> pointOverlays = new HashMap<>();
+
+    public void toggleScaleVertices() {
+        scaleVertices = !scaleVertices;
+        removeAll();
+        repaint();
+    }
 
     public void setAlpha(float alpha) {
         // set all class color alphas
@@ -131,13 +140,15 @@ public class PlotPanel extends JPanel {
         int margin = 70;
 
         int axisCount = data[0].length;
-        int lineSpacing = panelWidth / (axisCount + 1);
+        int lineSpacing = panelWidth / axisCount;
 
         g.setColor(Color.BLACK);
 
         float[] maxes = new float[axisCount - 1]; // init to all 0s
         float[] mins = new float[axisCount - 1]; // init to all max values
         Arrays.fill(mins, Float.MAX_VALUE);
+
+        pointOverlays.clear();
 
         for (int j = 1; j < data.length; j++) {
             for (int i = 0; i < axisCount - 1; i++) {
@@ -163,7 +174,7 @@ public class PlotPanel extends JPanel {
 
         // draw axis lines
         g.setColor(axisColor);
-        for (int i = 1; i <= axisCount; i++) {
+        for (int i = 1; i < axisCount; i++) {
             int x = lineSpacing * i;
             g.drawLine(x-1, 35, x-1, panelHeight - margin);
             g.drawLine(x, 35, x, panelHeight - margin);
@@ -171,55 +182,61 @@ public class PlotPanel extends JPanel {
         }
         
         HashMap<String, Integer> classNums = new HashMap<>();
-        int next = 0;
         for (int j = 1; j < data.length; j++) {
-            for (int i = 1; i < axisCount; i++) {
+            int lastAxisIndex = axisCount - 1; // Index of the last axis
+
+            // Iterate over each axis including the last one
+            for (int i = 1; i <= lastAxisIndex; i++) {
                 int x = lineSpacing * i;
-                g.setColor(colorMap.get(data[j][axisCount - 1]));
-                // n datapoint
-                Float dataPnt = Float.parseFloat(data[j][i-1]);
-                int pos = Math.round((panelHeight + 35 - margin - margin) * ((dataPnt - mins[i-1]) / (maxes[i-1] - mins[i-1])) + margin);
-                if (i < axisCount - 1) {
-                    // n+1 datapoint
+                g.setColor(colorMap.get(data[j][lastAxisIndex])); // Use color from last axis
+                Float dataPnt;
+                int pos;
+                if (i < lastAxisIndex) {
+                    // For non-last axes, calculate position and draw vertex
+                    dataPnt = Float.parseFloat(data[j][i - 1]);
+                    pos = Math.round((panelHeight + 35 - margin - margin) * ((dataPnt - mins[i - 1]) / (maxes[i - 1] - mins[i - 1])) + margin);
+                    Point point = new Point(x, panelHeight - pos);
+                    pointOverlays.put(point, pointOverlays.getOrDefault(point, 0) + 1);
+                    int size = 7;
+                    if (scaleVertices) {
+                        int sizeRange = 20 - 7; // Range of sizes
+                        int maxOverlays = 8; // Maximum overlays before reaching the maximum size
+                        int overlays = pointOverlays.get(point) - 1; // Number of overlays
+
+                        // Calculate the scaled size
+                        size = Math.min(20, 7 + (int) ((double) overlays / maxOverlays * sizeRange));
+                    }
+                    g.fillOval(x - size / 2, panelHeight - pos - size / 2, size, size);
+                } else {
+                    // For the last axis, draw vertex using the last data point
+                    dataPnt = Float.parseFloat(data[j][lastAxisIndex - 1]);
+                    pos = Math.round((panelHeight + 35 - margin - margin) * ((dataPnt - mins[lastAxisIndex - 1]) / (maxes[lastAxisIndex - 1] - mins[lastAxisIndex - 1])) + margin);
+                    Point point = new Point(x, panelHeight - pos);
+                    pointOverlays.put(point, pointOverlays.getOrDefault(point, 0) + 1);
+                    int size = 7;
+                    if (scaleVertices) {
+                        int sizeRange = 20 - 7; // Range of sizes
+                        int maxOverlays = 8; // Maximum overlays before reaching the maximum size
+                        int overlays = pointOverlays.get(point) - 1; // Number of overlays
+
+                        // Calculate the scaled size
+                        size = Math.min(20, 7 + (int) ((double) overlays / maxOverlays * sizeRange));
+                    }
+                    g.fillOval(x - size / 2, panelHeight - pos - size / 2, size, size);
+                }
+                
+                if (i < lastAxisIndex) {
+                    // For non-last axes, draw edge to the next data point
                     Float nextDataPnt = Float.parseFloat(data[j][i]);
                     int nextPos = Math.round((panelHeight + 35 - margin - margin) * ((nextDataPnt - mins[i]) / (maxes[i] - mins[i])) + margin);
-                    // draw n datapoint
-                    g.fillOval(x - 4, panelHeight - pos - 4, 7, 7);
-                    // connect n to n+1 datapoints with an edge
                     g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextPos);
-                } else if (i == axisCount - 1){
-                    String className = data[j][i];
-                    
-                    if (classNums.containsKey(className)) {
-                        int nextDataPnt = (panelHeight + 35 - margin - margin) * classNums.get(className) / colorMap.size() + margin;
-                        g.fillOval(x - 4, panelHeight - pos - 4, 7, 7);
-                        g.drawLine(x, panelHeight - pos, lineSpacing * (i + 1), panelHeight - nextDataPnt);
-                        JLabel label = new JLabel(className);
-                        label.setForeground(colorMap.get(className));
-                        int xPos = lineSpacing * (i+1) + className.length() * 4;
-                        xPos -= (int)Math.floor(2*className.length());
-                        int yPos = panelHeight - nextDataPnt - 10;
-                        Point position = new Point(xPos, yPos);
-                        if (showAxisNames) {
-                            label.setLocation(position);
-                            // Set the size of the label
-                            int width = 100;
-                            int height = 15;
-                            Dimension size = new Dimension(width, height);
-                            label.setSize(size);
-                            add(label);
-                        }
-                    } else {
-                        classNums.put(className, next);
-                        next++;
-                    }
                 }
             }
         }
         
         if (showAxisNames) {
             // draw axis labels
-            for (int i = 1; i <= axisCount; i++) {
+            for (int i = 1; i < axisCount; i++) {
                 String name = data[0][i-1];
                 JLabel label = new JLabel(name);
                 // Set the position of the label
@@ -288,6 +305,11 @@ public class PlotPanel extends JPanel {
         int legendWidth = 20;
         // get longest class name
         int longest = 0;
+        classNums = new HashMap<>();
+        for (int j = 1; j < data.length; j++) {
+            String className = data[j][axisCount - 1];
+            classNums.put(className, classNums.getOrDefault(className, 0) + 1);
+        }
         for (String className : classNums.keySet()) {
             if (className.length() > longest) {
                 longest = className.length();
