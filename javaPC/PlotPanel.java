@@ -30,7 +30,7 @@ public class PlotPanel extends JPanel {
 
     private String[][] data;
     private boolean showAxisNames = true;
-    private static Color backgroundColor = Color.WHITE;
+    private static Color backgroundColor = Color.GRAY;
     private static Color axisColor = Color.BLACK;
 
     public void setAlpha(float alpha) {
