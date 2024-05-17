@@ -6,6 +6,24 @@ Java Parallel Coordinates Visualization Tool, visualizing multidimensional/multi
 
 "Parallel Coordinates plots are a common method of visualizing high-dimensional datasets to analyze multivariate data having multiple variables, or attributes." [Wikipedia](https://en.wikipedia.org/wiki/Parallel_coordinates)
 
+## Screenshots
+
+### Iris dataset render  
+
+![Iris dataset render](screenshots/iris_render.png)
+
+### Heart disease dataset render
+
+![Heart disease dataset render](screenshots/heart.png)
+
+### Wisconsin breast cancer diagnosis render  
+
+![Wisconsin breast cancer diagnosis render](screenshots/wbc_render.png)
+
+### MNIST render  
+
+![Wisconsin render](screenshots/MNIST_render.png)
+
 ## Prerequisites
 
 Make sure Java is installed on your system to compile and run this application.
@@ -76,21 +94,3 @@ To plot a dataset make sure the class/id column is the last column.
 - `sin_cos.csv` - Dataset containing sin and cos values for various angles. Classes: Sin, Cos
 - `wheat_seeds.csv` - UCI's wheat seeds dataset. Classes: 0, 1, 2  
 - `wine.csv` - Dataset with chemical analysis of wines. Classes: Class_0, Class_1, Class_2
-
-## Screenshots
-
-### Iris dataset render  
-
-![Iris dataset render](screenshots/iris_render.png)
-
-### Heart disease dataset render
-
-![Heart disease dataset render](screenshots/heart.png)
-
-### Wisconsin breast cancer diagnosis render  
-
-![Wisconsin breast cancer diagnosis render](screenshots/wbc_render.png)
-
-### MNIST render  
-
-![Wisconsin render](screenshots/MNIST_render.png)
