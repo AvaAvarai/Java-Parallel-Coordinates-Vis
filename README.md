@@ -1,6 +1,6 @@
 # Java Parallel Coordinates Visualization Tool
 
-Java Parallel Coordinates Visualization Tool, visualizing multidimensional/multivariate CSV data with Java Swing.
+Java Parallel Coordinates Visualization Tool, Java-Parallel-Coordinates-Vis, is a pre-compiled and opensource Java Swing GUI application. This application visualizes multidimensional/multivariate CSV data with the Java Swing GUI library for cross-platform support dependent on JVM/Swing/AWT toolkit support.
 
 ## What are Parallel Coordinates
 
@@ -94,3 +94,7 @@ To plot a dataset make sure the class/id column is the last column.
 - `sin_cos.csv` - Dataset containing sin and cos values for various angles. Classes: Sin, Cos
 - `wheat_seeds.csv` - UCI's wheat seeds dataset. Classes: 0, 1, 2  
 - `wine.csv` - Dataset with chemical analysis of wines. Classes: Class_0, Class_1, Class_2
+
+## License
+
+This project and its contents are freely available for personal and commercial use under the MIT license. Please see `LICENSE` for full license details.
